@@ -1,0 +1,2846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About AMPCONNECT | Value-Added Technology Distribution in the UAE, GCC &amp; Africa</title>
+<meta name="description" content="AMPCONNECT is a value-added technology distributor serving the UAE, GCC and Africa, part of the Sharafi Holding Group, with 30+ years of expertise and a 600+ vendor ecosystem.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+<style>
+  html,body{ margin:0; padding:0; min-height:100%; background:#ffffff; }
+  body{ font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
+  img{ max-width:100%; height:auto; }
+</style>
+</head>
+<body>
+<!-- ============================================================
+  AMPCONNECT SITE HEADER — one Elementor HTML widget (header template)
+  Brand: navy #3D5A80 · navy-deep #2f4763 · coral #ed6e4e · Poppins
+  (Poppins comes from Elementor Site Settings / Global Fonts.)
+
+  Parts — each maps to one native Elementor element if rebuilt:
+    1. UTILITY STRIP   .amp-util             → Container + Icon List
+    2. MAIN BAR        .amp-bar              → Site Logo · Mega Menu · 2 Buttons
+    3. MOBILE DRAWER   #ampDrawer            → Mega Menu mobile / Off-canvas
+    4. PARTNER POPUP   #amp-popup-partner    → Elementor Popup + Form widget
+    5. GUIDANCE POPUP  #amp-popup-guidance   → Elementor Popup + Form widget
+
+  Open a popup from ANY element on the site:
+    link  href="#amp-popup-partner"   (Elementor Button → Link field)
+    or    data-amp-popup="amp-popup-partner"
+
+  Notes for WordPress:
+    · The bar is position:fixed. Do not give the parent section an
+      entrance animation / motion effect (a transform breaks "fixed").
+    · .amp-header-spacer reserves the bar's height so content isn't hidden.
+    · ⚠ The popup forms send NOTHING yet — see "4. Popup forms" in the script.
+  ============================================================ -->
+<style>
+#amp-header-system{
+  --navy:#3D5A80;
+  --navy-deep:#2f4763;
+  --coral:#ed6e4e;
+  --coral-dark:#d85c3e;
+  --ink:#213040;
+  --muted:#6b7a8d;
+  --line:#e7ecf2;
+  --hdr-h:78px;      /* main bar height at rest */
+  --hdr-h-sm:66px;   /* main bar height when scrolled */
+  --util-h:40px;     /* utility strip height */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --shadow-pop:0 30px 70px -24px rgba(47,71,99,.38);
+  width:100%;max-width:100%;min-width:0;
+  font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---- Reset: shields the header from theme / Elementor kit styles ---- */
+#amp-header-system *,#amp-header-system *::before,#amp-header-system *::after{box-sizing:border-box;font-family:inherit}
+#amp-header-system a{text-decoration:none;color:inherit}
+#amp-header-system button{font:inherit;color:inherit;margin:0;padding:0;border:0;background:none;text-transform:none;letter-spacing:inherit}
+#amp-header-system img{max-width:100%;display:block}
+#amp-header-system [hidden]{display:none !important}
+#amp-header-system .amp-header-spacer{height:calc(var(--hdr-h) + var(--util-h));width:100%;pointer-events:none}
+
+/* ===================== HEADER SHELL ===================== */
+#amp-header-system #amp-hdr{position:fixed;inset:0 0 auto 0;z-index:1000}
+body.admin-bar #amp-header-system #amp-hdr{top:32px}
+body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px)}
+
+/* ---- 1. Utility strip (collapses on scroll) ---- */
+#amp-header-system .amp-util{
+  height:var(--util-h);
+  background:var(--navy-deep);
+  color:#dfe7f1;
+  font-size:12.5px;
+  overflow:hidden;
+  transition:height .4s var(--ease),opacity .35s var(--ease);
+}
+#amp-header-system .amp-util-in{
+  max-width:1320px;margin:0 auto;height:var(--util-h);padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+#amp-header-system .u-left{letter-spacing:.04em;color:#c3d0e0;white-space:nowrap}
+#amp-header-system .u-right{display:flex;align-items:center;gap:22px}
+#amp-header-system .u-right a{display:inline-flex;align-items:center;gap:7px;color:#dfe7f1;transition:color .2s}
+#amp-header-system .u-right a:hover{color:var(--coral)}
+#amp-header-system .amp-util svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8}
+#amp-header-system .u-div{width:1px;height:14px;background:rgba(255,255,255,.18)}
+
+/* ---- 2. Main bar ---- */
+#amp-header-system .amp-bar{
+  height:var(--hdr-h);
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  transition:height .4s var(--ease),background .4s var(--ease),
+             box-shadow .4s var(--ease),border-color .4s var(--ease),
+             backdrop-filter .4s var(--ease);
+}
+#amp-header-system .amp-bar-in{
+  max-width:1320px;margin:0 auto;height:100%;padding:0 28px;
+  display:flex;align-items:center;gap:26px;
+}
+
+/* Scrolled state: glassmorphism + shrink */
+#amp-header-system #amp-hdr.is-scrolled .amp-util{height:0;opacity:0}
+#amp-header-system #amp-hdr.is-scrolled .amp-bar{
+  height:var(--hdr-h-sm);
+  background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  backdrop-filter:blur(18px) saturate(160%);
+  border-color:rgba(210,220,232,.6);
+  box-shadow:0 8px 32px -14px rgba(47,71,99,.28);
+}
+
+/* Logo */
+#amp-header-system .amp-logo{display:flex;align-items:center;flex-shrink:0}
+#amp-header-system .amp-logo-img{height:52px;width:auto;transition:height .4s var(--ease)}
+#amp-header-system #amp-hdr.is-scrolled .amp-logo-img{height:46px}
+#amp-header-system .dr-head .amp-logo-img{height:44px}
+
+/* Nav */
+#amp-header-system .amp-nav{display:flex;align-items:center;gap:4px;margin-left:8px}
+#amp-header-system .nav-item{position:relative}
+#amp-header-system .nav-link{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 15px;border-radius:10px;
+  font-size:15px;font-weight:500;color:var(--ink);
+  cursor:pointer;transition:color .2s;white-space:nowrap;
+}
+#amp-header-system .nav-link:hover{color:var(--navy)}
+#amp-header-system .nav-link .caret{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.2;
+  transition:transform .3s var(--ease);opacity:.7}
+#amp-header-system .nav-link::after{ /* animated underline */
+  content:"";position:absolute;left:15px;right:15px;bottom:6px;height:2px;
+  background:var(--coral);border-radius:2px;transform:scaleX(0);transform-origin:left;
+  transition:transform .28s var(--ease);
+}
+#amp-header-system .nav-item:hover .nav-link::after{transform:scaleX(1)}
+#amp-header-system .nav-item:hover .nav-link .caret{transform:rotate(180deg)}
+
+/* Mega dropdowns */
+#amp-header-system .mega{
+  position:absolute;top:calc(100% + 14px);left:0;
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow-pop);
+  padding:18px;opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .26s var(--ease),transform .26s var(--ease),visibility .26s;
+  z-index:20;
+}
+#amp-header-system .mega::before{ /* hover bridge */
+  content:"";position:absolute;top:-16px;left:0;right:0;height:16px;
+}
+#amp-header-system .nav-item:hover .mega,#amp-header-system .nav-item.open .mega{opacity:1;visibility:visible;transform:translateY(0)}
+
+/* Solutions mega */
+#amp-header-system .mega-sol{width:600px}
+#amp-header-system .mega-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+#amp-header-system .m-card{display:flex;gap:13px;padding:12px 13px;border-radius:12px;transition:background .2s var(--ease)}
+#amp-header-system .m-card:hover{background:#f5f8fc}
+#amp-header-system .m-ico{
+  flex-shrink:0;width:40px;height:40px;border-radius:10px;
+  display:grid;place-items:center;
+  background:linear-gradient(150deg,#eef3f9,#e3ebf5);
+  color:var(--navy);transition:background .25s,color .25s;
+}
+#amp-header-system .m-card:hover .m-ico{background:var(--navy);color:#fff}
+#amp-header-system .m-ico svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7}
+#amp-header-system .m-txt h4{margin:0 0 3px;font-size:14.5px;font-weight:600;color:var(--ink)}
+#amp-header-system .m-txt p{margin:0;font-size:12px;line-height:1.45;color:var(--muted)}
+#amp-header-system .mega-foot{
+  margin-top:12px;padding:13px 15px;border-radius:12px;
+  background:linear-gradient(120deg,var(--navy),var(--navy-deep));
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;text-align:left;cursor:pointer;
+}
+#amp-header-system .mega-foot span{color:#fff;font-size:13.5px;font-weight:500}
+#amp-header-system .mega-foot small{display:block;color:#c3d0e0;font-size:11.5px;font-weight:400;margin-top:2px}
+#amp-header-system .foot-cta{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--coral);font-size:13px;font-weight:600;
+  padding:8px 15px;border-radius:9px;transition:background .2s,gap .2s}
+#amp-header-system .mega-foot:hover .foot-cta{background:var(--coral-dark);gap:10px}
+#amp-header-system .foot-cta svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2}
+
+/* Brands mega */
+#amp-header-system .mega-brands{width:720px;left:50%;transform:translate(-50%,10px)}
+#amp-header-system .nav-item:hover .mega-brands,#amp-header-system .nav-item.open .mega-brands{transform:translate(-50%,0)}
+#amp-header-system .mega-brands .mega-foot{justify-content:flex-end}
+#amp-header-system .brands-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 10px}
+#amp-header-system .b-col{padding:8px 6px}
+#amp-header-system .b-group{margin-bottom:14px}
+#amp-header-system .b-group:last-child{margin-bottom:0}
+#amp-header-system .b-label{
+  font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--coral);margin:0 0 9px;padding:0 8px;
+}
+#amp-header-system .b-link{
+  display:block;padding:7px 8px;border-radius:8px;
+  font-size:13.5px;font-weight:500;color:var(--ink);
+  transition:background .18s,color .18s,padding-left .18s var(--ease);
+}
+#amp-header-system .b-link:hover{background:#f5f8fc;color:var(--navy);padding-left:12px}
+
+/* Right CTAs + shared buttons */
+#amp-header-system .amp-cta{margin-left:auto;display:flex;align-items:center;gap:11px;flex-shrink:0}
+#amp-header-system .btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-size:14px;font-weight:600;cursor:pointer;
+  padding:11px 20px;border-radius:11px;border:1.6px solid transparent;
+  transition:transform .18s var(--ease),background .2s,box-shadow .2s,border-color .2s,color .2s;
+  white-space:nowrap;
+}
+#amp-header-system .btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+#amp-header-system .btn-primary{background:var(--coral);color:#fff;box-shadow:0 12px 24px -12px rgba(237,110,78,.7)}
+#amp-header-system .btn-primary:hover{background:var(--coral-dark);transform:translateY(-2px);
+  box-shadow:0 18px 30px -12px rgba(237,110,78,.75)}
+#amp-header-system .btn-ghost{background:#fff;color:var(--navy);border-color:#d5deea}
+#amp-header-system .btn-ghost:hover{border-color:var(--navy);background:var(--navy);color:#fff;transform:translateY(-2px)}
+
+/* Hamburger */
+#amp-header-system .amp-burger{
+  display:none;margin-left:auto;width:44px;height:44px;border-radius:11px;
+  border:1.6px solid var(--line);background:#fff;cursor:pointer;
+  align-items:center;justify-content:center;flex-direction:column;gap:5px;
+  flex:0 0 44px;-webkit-tap-highlight-color:transparent;
+}
+#amp-header-system .amp-burger span{width:20px;height:2px;background:var(--navy);border-radius:2px;
+  transition:transform .3s var(--ease),opacity .2s}
+#amp-header-system .amp-burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+#amp-header-system .amp-burger.on span:nth-child(2){opacity:0}
+#amp-header-system .amp-burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ===================== 3. MOBILE DRAWER ===================== */
+#amp-header-system .amp-scrim{
+  position:fixed;inset:0;background:rgba(33,48,64,.44);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:1001;
+  touch-action:none;
+}
+#amp-header-system .amp-scrim.on{opacity:1;visibility:visible}
+#amp-header-system .amp-drawer{
+  position:fixed;top:0;right:0;height:100vh;height:100dvh;width:min(420px,100vw);
+  background:#fff;z-index:1002;transform:translateX(100%);
+  visibility:hidden;transition:transform .42s var(--ease),visibility 0s linear .42s;
+  display:flex;flex-direction:column;box-shadow:-30px 0 60px -20px rgba(47,71,99,.4);
+  overscroll-behavior:contain;
+}
+#amp-header-system .amp-drawer.on{transform:translateX(0);visibility:visible;transition-delay:0s}
+#amp-header-system .dr-head{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:calc(14px + env(safe-area-inset-top)) 20px 14px;border-bottom:1px solid var(--line)}
+#amp-header-system .dr-close{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;display:grid;place-items:center;flex-shrink:0}
+#amp-header-system .dr-close svg{width:18px;height:18px;stroke:var(--navy);fill:none;stroke-width:2}
+#amp-header-system .dr-body{flex:1;min-height:0;overflow-y:auto;padding:10px 14px;overscroll-behavior:contain}
+#amp-header-system .dr-link,#amp-header-system .dr-acc-btn{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+  padding:13px 12px;font-size:16px;font-weight:500;color:var(--ink);border-radius:10px;cursor:pointer;
+}
+#amp-header-system .dr-link:hover,#amp-header-system .dr-acc-btn:hover{background:#f5f8fc}
+#amp-header-system .dr-acc-btn svg{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2.2;
+  transition:transform .3s var(--ease)}
+#amp-header-system .dr-acc.open .dr-acc-btn svg{transform:rotate(180deg)}
+#amp-header-system .dr-panel{max-height:0;overflow:hidden;transition:max-height .38s var(--ease)}
+#amp-header-system .dr-panel-in{padding:2px 8px 10px}
+#amp-header-system .dr-sub-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--coral);margin:12px 10px 4px}
+#amp-header-system .dr-sub{display:block;padding:9px 14px;font-size:14px;color:var(--muted);
+  border-radius:8px;border-left:2px solid var(--line);margin-left:10px}
+#amp-header-system .dr-sub:hover{background:#f5f8fc;color:var(--navy);border-left-color:var(--coral)}
+#amp-header-system .dr-sub-accent{color:var(--coral);font-weight:600}
+#amp-header-system .dr-guidance{width:calc(100% - 10px);margin:8px 0 2px 10px;padding:11px 14px;
+  border-radius:9px;background:#eef3f9;color:var(--navy);font-size:14px;font-weight:600;line-height:1.35;
+  cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between}
+#amp-header-system .dr-guidance:hover{background:var(--navy);color:#fff}
+#amp-header-system .dr-guidance svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2}
+#amp-header-system .dr-foot{display:grid;grid-template-columns:1fr;gap:8px;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+#amp-header-system .dr-foot .btn{padding:12px 16px}
+#amp-header-system .dr-contact{grid-column:1 / -1;margin:2px 0 0;text-align:center;font-size:13px;color:var(--muted)}
+#amp-header-system .dr-contact a{color:var(--navy);font-weight:600}
+
+/* ===================== 4–5. POPUPS ===================== */
+#amp-header-system .amp-modal{
+  position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:24px;
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+}
+#amp-header-system .amp-modal.on{opacity:1;visibility:visible}
+#amp-header-system .modal-scrim{position:absolute;inset:0;background:rgba(24,36,50,.55);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#amp-header-system .modal-card{
+  position:relative;width:min(560px,100%);max-height:92vh;max-height:92dvh;
+  overflow-y:auto;overscroll-behavior:contain;
+  background:#fff;border-radius:22px;box-shadow:var(--shadow-pop);
+  transform:translateY(18px) scale(.97);transition:transform .4s var(--ease);
+}
+#amp-header-system .amp-modal.on .modal-card{transform:translateY(0) scale(1)}
+#amp-header-system .modal-top{
+  position:relative;padding:26px 30px 22px;color:#fff;overflow:hidden;
+  background:linear-gradient(125deg,var(--navy) 0%,var(--navy-deep) 100%);
+}
+#amp-header-system .modal-top::after{ /* brand ring */
+  content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;
+  border-radius:50%;border:22px solid rgba(237,110,78,.16);pointer-events:none;
+}
+#amp-header-system .modal-top p{margin:8px 0 0;font-size:13.5px;line-height:1.5;color:#cdd8e6;max-width:90%}
+#amp-header-system .modal-eyebrow{font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+#amp-header-system .modal-top h3{margin:0;font-size:23px;font-weight:700;line-height:1.3;letter-spacing:-.01em;color:#fff}
+#amp-header-system .modal-x{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:9px;
+  background:rgba(255,255,255,.14);cursor:pointer;display:grid;place-items:center;transition:background .2s;z-index:3}
+#amp-header-system .modal-x:hover{background:rgba(255,255,255,.26)}
+#amp-header-system .modal-x svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
+#amp-header-system .modal-body{padding:24px 30px 28px}
+#amp-header-system .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#amp-header-system .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+#amp-header-system .field.full{grid-column:1 / -1}
+#amp-header-system .field label{font-size:12.5px;font-weight:500;line-height:1.3;color:var(--ink)}
+#amp-header-system .req{color:var(--coral)}
+#amp-header-system .optional{color:var(--muted);font-weight:400}
+#amp-header-system .field input,#amp-header-system .field select,#amp-header-system .field textarea{
+  font-size:14px;color:var(--ink);margin:0;
+  padding:12px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fbfcfe;
+  transition:border-color .2s,box-shadow .2s,background .2s;width:100%;
+}
+#amp-header-system .field textarea{resize:vertical;min-height:78px}
+#amp-header-system .field input:focus,#amp-header-system .field select:focus,#amp-header-system .field textarea:focus{
+  outline:none;border-color:var(--navy);background:#fff;box-shadow:0 0 0 4px rgba(61,90,128,.1);
+}
+#amp-header-system .field input::placeholder,#amp-header-system .field textarea::placeholder{color:#a7b3c1}
+#amp-header-system .consent{display:flex;gap:10px;align-items:flex-start;margin-top:14px}
+#amp-header-system .consent input{width:17px;height:17px;margin:2px 0 0;accent-color:var(--coral);flex-shrink:0}
+#amp-header-system .consent label{font-size:12px;line-height:1.5;color:var(--muted)}
+#amp-header-system .consent .err + label{color:var(--coral)}
+#amp-header-system .modal-submit{width:100%;margin-top:14px;padding:14px;font-size:15px}
+#amp-header-system .err{border-color:var(--coral) !important;box-shadow:0 0 0 4px rgba(237,110,78,.12) !important}
+
+/* Success view */
+#amp-header-system .modal-success{position:relative;padding:44px 34px 40px;text-align:center}
+#amp-header-system .ok-badge{width:74px;height:74px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;background:linear-gradient(150deg,#e9f7ef,#d7f0e2)}
+#amp-header-system .ok-badge svg{width:34px;height:34px;stroke:#1f9d5a;fill:none;stroke-width:2.6}
+#amp-header-system .modal-success h3{margin:0 0 10px;font-size:22px;font-weight:700;color:var(--ink)}
+#amp-header-system .modal-success p{margin:0 auto;font-size:14px;line-height:1.6;color:var(--muted);max-width:360px}
+#amp-header-system .modal-success p b{color:var(--navy)}
+#amp-header-system .modal-success .btn{margin-top:22px}
+#amp-header-system .modal-success .modal-x{background:#eef2f7}
+#amp-header-system .modal-success .modal-x:hover{background:#e1e8f1}
+#amp-header-system .modal-success .modal-x svg{stroke:var(--navy)}
+
+/* Keyboard focus */
+#amp-header-system a:focus-visible,#amp-header-system button:focus-visible,#amp-header-system input:focus-visible,
+#amp-header-system select:focus-visible,#amp-header-system textarea:focus-visible{
+  outline:3px solid rgba(237,110,78,.45);outline-offset:3px;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width:1320px){ /* tighter bar so nav + CTAs fit down to 1201px */
+  #amp-header-system .amp-bar-in{gap:16px}
+  #amp-header-system .amp-nav{margin-left:0}
+  #amp-header-system .nav-link{padding:10px 10px}
+  #amp-header-system .nav-link::after{left:10px;right:10px}
+}
+@media (max-width:1200px){
+  #amp-header-system .amp-nav,#amp-header-system .amp-cta{display:none}
+  #amp-header-system .amp-burger{display:flex}
+  #amp-header-system .amp-bar-in{padding:0 20px}
+}
+@media (max-width:1040px){
+  #amp-header-system .amp-util-in{justify-content:center}
+  #amp-header-system .u-left{display:none}
+}
+@media (max-width:820px){
+  #amp-header-system{--hdr-h:70px;--hdr-h-sm:64px;--util-h:0px}
+  #amp-header-system .amp-util{display:none}
+  #amp-header-system .amp-logo-img{height:48px}
+  #amp-header-system #amp-hdr.is-scrolled .amp-logo-img{height:43px}
+}
+@media (max-width:782px){
+  body.admin-bar #amp-header-system #amp-hdr{top:46px}
+  body.admin-bar #amp-header-system .amp-drawer{top:46px;height:calc(100dvh - 46px)}
+}
+@media (max-width:560px){
+  #amp-header-system{--hdr-h:66px;--hdr-h-sm:62px}
+  #amp-header-system .amp-bar-in{padding:0 14px;gap:14px}
+  #amp-header-system .amp-logo-img{height:44px;max-width:calc(100vw - 86px);object-fit:contain;object-position:left center}
+  #amp-header-system #amp-hdr.is-scrolled .amp-logo-img{height:40px}
+  #amp-header-system .dr-head .amp-logo-img{height:38px;max-width:calc(100vw - 90px)}
+
+  /* Compact popup */
+  #amp-header-system .amp-modal{padding:12px}
+  #amp-header-system .modal-card{border-radius:16px;max-height:calc(100dvh - 24px)}
+  #amp-header-system .modal-top{padding:18px 56px 16px 20px}
+  #amp-header-system .modal-x{top:14px;right:14px;width:32px;height:32px}
+  #amp-header-system .modal-top h3{font-size:19px}
+  #amp-header-system .modal-top p{margin-top:6px;font-size:12.5px;max-width:none}
+  #amp-header-system .modal-body{padding:16px 20px 20px}
+  #amp-header-system .f-grid{grid-template-columns:1fr;gap:8px}
+  #amp-header-system .field{gap:4px}
+  #amp-header-system .field label{font-size:12px}
+  #amp-header-system .field input,#amp-header-system .field select,#amp-header-system .field textarea{
+    padding:9px 12px;font-size:16px; /* 16px stops iOS zooming into the field */
+  }
+  #amp-header-system .field select{padding-right:6px}
+  #amp-header-system .field textarea{min-height:56px}
+  #amp-header-system .consent{margin-top:12px}
+  #amp-header-system .consent label{font-size:11.5px}
+  #amp-header-system .modal-submit{margin-top:12px;padding:12px;font-size:14.5px}
+  #amp-header-system .modal-success{padding:36px 22px 30px}
+}
+@media (max-width:400px){
+  #amp-header-system .dr-head{padding-left:16px;padding-right:16px}
+  #amp-header-system .dr-body{padding-left:10px;padding-right:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  #amp-header-system *,#amp-header-system *::before,#amp-header-system *::after{transition-duration:.01ms !important}
+}
+</style>
+
+<div id="amp-header-system">
+<div class="amp-header-spacer" aria-hidden="true"></div>
+
+<!-- ======================= HEADER ======================= -->
+<header id="amp-hdr">
+
+  <!-- 1. Utility strip -->
+  <div class="amp-util">
+    <div class="amp-util-in">
+      <div class="u-left">Value-Added IT Distribution across UAE, GCC &amp; Africa</div>
+      <div class="u-right">
+        <a href="tel:+97148065894" aria-label="Call AMPCONNECT">
+          <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7 12.8 12.8 0 0 0 .7 2.8 2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5 12.8 12.8 0 0 0 2.8.7 2 2 0 0 1 1.7 2z"/></svg>
+          +971&nbsp;4&nbsp;806&nbsp;5894
+        </a>
+        <span class="u-div"></span>
+        <a href="mailto:info@ampconnectme.com" aria-label="Email AMPCONNECT">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>
+          info@ampconnectme.com
+        </a>
+        <span class="u-div"></span>
+        <a href="https://ae.linkedin.com/company/ampconnectme" target="_blank" rel="noopener" aria-label="AMPCONNECT on LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Main bar -->
+  <div class="amp-bar">
+    <div class="amp-bar-in">
+
+      <a class="amp-logo" href="index.html" aria-label="AMPCONNECT home">
+        <img src="https://ampconnectme.com/wp-content/uploads/2025/05/site_logo.png" alt="AMPCONNECT — Redefining Future of Digital Distribution" class="amp-logo-img">
+      </a>
+
+      <nav class="amp-nav" aria-label="Primary">
+        <div class="nav-item"><a class="nav-link" href="index.html">Home</a></div>
+        <div class="nav-item"><a class="nav-link" href="about-us.html">About Us</a></div>
+
+        <!-- Solutions mega -->
+        <div class="nav-item">
+          <button class="nav-link" type="button" aria-expanded="false">Solutions
+            <svg class="caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="mega mega-sol">
+            <div class="mega-grid">
+              <a class="m-card" href="datacenter-solutions.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01"/></svg></span>
+                <div class="m-txt"><h4>Datacenter Solutions</h4><p>Racks, power, cooling &amp; monitoring built to scale.</p></div>
+              </a>
+              <a class="m-card" href="enterprise-cabling-solutions.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M7 8h10v3a5 5 0 0 1-10 0zM12 16v6"/></svg></span>
+                <div class="m-txt"><h4>Enterprise Cabling</h4><p>End-to-end copper &amp; fibre connectivity systems.</p></div>
+              </a>
+              <a class="m-card" href="computing-hyperconverged-solutions.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></span>
+                <div class="m-txt"><h4>Computing &amp; Hyperconverged</h4><p>Enterprise servers &amp; converged infrastructure.</p></div>
+              </a>
+              <a class="m-card" href="network-solutions.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/></svg></span>
+                <div class="m-txt"><h4>Network Solutions</h4><p>Secure, high-speed wired &amp; wireless networking.</p></div>
+              </a>
+              <a class="m-card" href="data-protection-and-business-continuity.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+                <div class="m-txt"><h4>Data Protection &amp; Continuity</h4><p>Backup, recovery &amp; always-on resilience.</p></div>
+              </a>
+              <a class="m-card" href="cyber-security.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V5z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                <div class="m-txt"><h4>Cyber Security</h4><p>Threat-lifecycle protection for the enterprise.</p></div>
+              </a>
+              <a class="m-card" href="safety-identification-monitoring.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+                <div class="m-txt"><h4>Safety, ID &amp; Monitoring</h4><p>Labelling, surveillance &amp; asset visibility.</p></div>
+              </a>
+              <a class="m-card" href="solutions.html">
+                <span class="m-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+                <div class="m-txt"><h4>All Solution Categories</h4><p>Explore the full AMPCONNECT portfolio.</p></div>
+              </a>
+            </div>
+            <button class="mega-foot" type="button" data-amp-popup="amp-popup-guidance" aria-haspopup="dialog">
+              <span>Not sure where to start?<small>Talk to our solutions architects</small></span>
+              <span class="foot-cta">Get guidance <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Brands mega -->
+        <div class="nav-item">
+          <button class="nav-link" type="button" aria-expanded="false">Brands
+            <svg class="caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="mega mega-brands">
+            <div class="brands-grid">
+              <div class="b-col">
+                <div class="b-group">
+                  <p class="b-label">Datacenter</p>
+                  <a class="b-link" href="rittal.html">Rittal</a>
+                  <a class="b-link" href="delta.html">Delta Electronics</a>
+                  <a class="b-link" href="legrand.html">Legrand</a>
+                </div>
+              </div>
+              <div class="b-col">
+                <div class="b-group">
+                  <p class="b-label">Enterprise Cabling</p>
+                  <a class="b-link" href="commscope.html">CommScope</a>
+                  <a class="b-link" href="datacom.html">Datacom</a>
+                  <a class="b-link" href="leviton.html">Leviton</a>
+                  <a class="b-link" href="optronics.html">Optronics Plus</a>
+                </div>
+              </div>
+              <div class="b-col">
+                <div class="b-group">
+                  <p class="b-label">Network</p>
+                  <a class="b-link" href="tp-link.html">TP-Link</a>
+                  <a class="b-link" href="ray.html">RAY</a>
+                </div>
+                <div class="b-group">
+                  <p class="b-label">Cyber Security</p>
+                  <a class="b-link" href="avast.html">Avast</a>
+                </div>
+              </div>
+              <div class="b-col">
+                <div class="b-group">
+                  <p class="b-label">Data Protection</p>
+                  <a class="b-link" href="arcserve.html">Arcserve</a>
+                  <a class="b-link" href="immutec.html">IMMUTEC</a>
+                </div>
+                <div class="b-group">
+                  <p class="b-label">Safety &amp; Monitoring</p>
+                  <a class="b-link" href="silverfox.html">Silver Fox</a>
+                  <a class="b-link" href="veracity.html">Veracity</a>
+                </div>
+              </div>
+            </div>
+            <a class="mega-foot" href="brands.html">
+              <span class="foot-cta">Browse all brands <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a class="nav-link" href="insights.html">Insights</a></div>
+        <div class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></div>
+      </nav>
+
+      <div class="amp-cta">
+        <button class="btn btn-primary" type="button" data-amp-popup="amp-popup-partner" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+          Become a Partner
+        </button>
+      </div>
+
+      <button class="amp-burger" type="button" id="ampBurger" aria-label="Open menu" aria-expanded="false" aria-controls="ampDrawer">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<!-- ======================= 3. MOBILE DRAWER ======================= -->
+<div class="amp-scrim" id="ampScrim" data-amp-close></div>
+<aside class="amp-drawer" id="ampDrawer" role="dialog" aria-modal="true" aria-label="Mobile navigation" aria-hidden="true" inert>
+  <div class="dr-head">
+    <a class="amp-logo" href="index.html">
+      <img src="https://ampconnectme.com/wp-content/uploads/2025/05/site_logo.png" alt="AMPCONNECT" class="amp-logo-img">
+    </a>
+    <button class="dr-close" type="button" data-amp-close aria-label="Close menu">
+      <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="dr-body">
+    <a class="dr-link" href="index.html">Home</a>
+    <a class="dr-link" href="about-us.html">About Us</a>
+
+    <div class="dr-acc">
+      <button class="dr-acc-btn" type="button" aria-expanded="false" aria-controls="mobileSolutions">Solutions
+        <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="dr-panel" id="mobileSolutions" aria-hidden="true" inert><div class="dr-panel-in">
+        <a class="dr-sub" href="datacenter-solutions.html">Datacenter Solutions</a>
+        <a class="dr-sub" href="enterprise-cabling-solutions.html">Enterprise Cabling</a>
+        <a class="dr-sub" href="computing-hyperconverged-solutions.html">Computing &amp; Hyperconverged</a>
+        <a class="dr-sub" href="network-solutions.html">Network Solutions</a>
+        <a class="dr-sub" href="data-protection-and-business-continuity.html">Data Protection &amp; Continuity</a>
+        <a class="dr-sub" href="cyber-security.html">Cyber Security</a>
+        <a class="dr-sub" href="safety-identification-monitoring.html">Safety, ID &amp; Monitoring</a>
+        <a class="dr-sub dr-sub-accent" href="solutions.html">View all solutions →</a>
+        <button class="dr-guidance" type="button" data-amp-popup="amp-popup-guidance" aria-haspopup="dialog">
+          Get solution guidance
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div></div>
+    </div>
+
+    <div class="dr-acc">
+      <button class="dr-acc-btn" type="button" aria-expanded="false" aria-controls="mobileBrands">Brands
+        <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="dr-panel" id="mobileBrands" aria-hidden="true" inert><div class="dr-panel-in">
+        <p class="dr-sub-label">Datacenter</p>
+        <a class="dr-sub" href="rittal.html">Rittal</a>
+        <a class="dr-sub" href="delta.html">Delta Electronics</a>
+        <a class="dr-sub" href="legrand.html">Legrand</a>
+        <p class="dr-sub-label">Enterprise Cabling</p>
+        <a class="dr-sub" href="commscope.html">CommScope</a>
+        <a class="dr-sub" href="datacom.html">Datacom</a>
+        <a class="dr-sub" href="leviton.html">Leviton</a>
+        <a class="dr-sub" href="optronics.html">Optronics Plus</a>
+        <p class="dr-sub-label">Network</p>
+        <a class="dr-sub" href="tp-link.html">TP-Link</a>
+        <a class="dr-sub" href="ray.html">RAY</a>
+        <p class="dr-sub-label">Cyber Security</p>
+        <a class="dr-sub" href="avast.html">Avast</a>
+        <p class="dr-sub-label">Data Protection</p>
+        <a class="dr-sub" href="arcserve.html">Arcserve</a>
+        <a class="dr-sub" href="immutec.html">IMMUTEC</a>
+        <p class="dr-sub-label">Safety &amp; Monitoring</p>
+        <a class="dr-sub" href="silverfox.html">Silver Fox</a>
+        <a class="dr-sub" href="veracity.html">Veracity</a>
+        <a class="dr-sub dr-sub-accent" href="brands.html">Browse all brands →</a>
+      </div></div>
+    </div>
+
+    <a class="dr-link" href="insights.html">Insights</a>
+    <a class="dr-link" href="contact-us.html">Contact Us</a>
+  </div>
+  <div class="dr-foot">
+    <button class="btn btn-primary" type="button" data-amp-popup="amp-popup-partner" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      Become a Partner</button>
+    <p class="dr-contact">Call us <a href="tel:+97148065894">+971&nbsp;4&nbsp;806&nbsp;5894</a></p>
+  </div>
+</aside>
+
+<!-- ======================= 4. PARTNER POPUP ======================= -->
+<div class="amp-modal" id="amp-popup-partner" role="dialog" aria-modal="true" aria-labelledby="pmTitle" aria-hidden="true" inert>
+  <div class="modal-scrim" data-amp-close></div>
+  <div class="modal-card">
+    <!-- ⚠ Demo form: validates, shows the success view, sends nothing. -->
+    <form class="modal-form" novalidate>
+      <div class="modal-top">
+        <button class="modal-x" type="button" data-amp-close aria-label="Close">
+          <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        <p class="modal-eyebrow">Partner with AMPCONNECT</p>
+        <h3 id="pmTitle">Let's grow together</h3>
+        <p>Tell us about your business and our channel team will map the right vendors, enablement and margins for you.</p>
+      </div>
+      <div class="modal-body">
+        <div class="f-grid">
+          <div class="field">
+            <label for="pmName">Full Name <span class="req">*</span></label>
+            <input id="pmName" type="text" name="name" placeholder="Your name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="pmCompany">Company <span class="req">*</span></label>
+            <input id="pmCompany" type="text" name="company" placeholder="Your company name" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label for="pmEmail">Business Email <span class="req">*</span></label>
+            <input id="pmEmail" type="email" name="email" placeholder="you@company.com" autocomplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
+          </div>
+          <div class="field">
+            <label for="pmPhone">Phone <span class="req">*</span></label>
+            <input id="pmPhone" type="tel" name="phone" placeholder="+971 __ ___ ____" autocomplete="tel" required>
+          </div>
+          <div class="field">
+            <label for="pmCountry">Country</label>
+            <select id="pmCountry" name="country">
+              <option value="">Select country</option>
+              <option>United Arab Emirates</option>
+              <option>Saudi Arabia</option>
+              <option>Oman</option>
+              <option>Qatar</option>
+              <option>Kuwait</option>
+              <option>Bahrain</option>
+              <option>Other GCC / Africa</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pmInterest">Partnership Interest</label>
+            <select id="pmInterest" name="interest">
+              <option value="">Select area</option>
+              <option>Reseller / Channel Partner</option>
+              <option>Datacenter Solutions</option>
+              <option>Enterprise Cabling</option>
+              <option>Computing &amp; Hyperconverged</option>
+              <option>Network Solutions</option>
+              <option>Cyber Security</option>
+              <option>Data Protection &amp; Continuity</option>
+              <option>Safety, ID &amp; Monitoring</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="pmMessage">Message <span class="optional">(optional)</span></label>
+            <textarea id="pmMessage" name="message" placeholder="Which markets, brands or projects are you focused on?"></textarea>
+          </div>
+        </div>
+        <div class="consent">
+          <input type="checkbox" id="pmConsent" name="consent" required>
+          <label for="pmConsent">I consent to AMPCONNECT contacting me about partnership opportunities. Your details are handled per our privacy policy.</label>
+        </div>
+        <button class="btn btn-primary modal-submit" type="submit">
+          Submit Partnership Request
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </form>
+    <div class="modal-success" role="status" aria-live="polite" hidden>
+      <button class="modal-x" type="button" data-amp-close aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div class="ok-badge"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Request received</h3>
+      <p>Thank you — our partnerships team will reach out within one business day. For anything urgent, call <b>+971&nbsp;4&nbsp;806&nbsp;5894</b>.</p>
+      <button class="btn btn-ghost" type="button" data-amp-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= 5. SOLUTION GUIDANCE POPUP ======================= -->
+<div class="amp-modal" id="amp-popup-guidance" role="dialog" aria-modal="true" aria-labelledby="gmTitle" aria-hidden="true" inert>
+  <div class="modal-scrim" data-amp-close></div>
+  <div class="modal-card">
+    <!-- ⚠ Demo form: validates, shows the success view, sends nothing. -->
+    <form class="modal-form" novalidate>
+      <div class="modal-top">
+        <button class="modal-x" type="button" data-amp-close aria-label="Close solution guidance form">
+          <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        <p class="modal-eyebrow">Solution Guidance</p>
+        <h3 id="gmTitle">Find the right solution for your project</h3>
+        <p>Share your requirements and an AMPCONNECT solutions specialist will help identify the right technologies and vendors.</p>
+      </div>
+      <div class="modal-body">
+        <div class="f-grid">
+          <div class="field">
+            <label for="gmName">Full Name <span class="req">*</span></label>
+            <input id="gmName" type="text" name="guidance_name" placeholder="Your name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="gmCompany">Company <span class="req">*</span></label>
+            <input id="gmCompany" type="text" name="guidance_company" placeholder="Your company name" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label for="gmEmail">Business Email <span class="req">*</span></label>
+            <input id="gmEmail" type="email" name="guidance_email" placeholder="you@company.com" autocomplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
+          </div>
+          <div class="field">
+            <label for="gmPhone">Phone <span class="req">*</span></label>
+            <input id="gmPhone" type="tel" name="guidance_phone" placeholder="+971 __ ___ ____" autocomplete="tel" required>
+          </div>
+          <div class="field">
+            <label for="gmCountry">Country</label>
+            <select id="gmCountry" name="guidance_country">
+              <option value="">Select country</option>
+              <option>United Arab Emirates</option>
+              <option>Saudi Arabia</option>
+              <option>Oman</option>
+              <option>Qatar</option>
+              <option>Kuwait</option>
+              <option>Bahrain</option>
+              <option>Other GCC / Africa</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="gmSolution">Solution Area</label>
+            <select id="gmSolution" name="guidance_solution">
+              <option value="">Select a solution</option>
+              <option>Datacenter Solutions</option>
+              <option>Enterprise Cabling</option>
+              <option>Computing &amp; Hyperconverged</option>
+              <option>Network Solutions</option>
+              <option>Data Protection &amp; Continuity</option>
+              <option>Cyber Security</option>
+              <option>Safety, Identification &amp; Monitoring</option>
+              <option>Not sure / Multiple solutions</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="gmMessage">Project Requirements</label>
+            <textarea id="gmMessage" name="guidance_message" placeholder="Tell us about your project, challenge, timeline or technologies you are considering."></textarea>
+          </div>
+        </div>
+        <div class="consent">
+          <input type="checkbox" id="gmConsent" name="guidance_consent" required>
+          <label for="gmConsent">I consent to AMPCONNECT contacting me about this enquiry. My details will be handled according to the privacy policy.</label>
+        </div>
+        <button class="btn btn-primary modal-submit" type="submit">
+          Request Solution Guidance
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </form>
+    <div class="modal-success" role="status" aria-live="polite" hidden>
+      <button class="modal-x" type="button" data-amp-close aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div class="ok-badge"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Enquiry received</h3>
+      <p>Thank you. An AMPCONNECT solutions specialist will contact you within one business day.</p>
+      <button class="btn btn-ghost" type="button" data-amp-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var system=document.getElementById('amp-header-system');
+  if(!system || system.dataset.ampReady) return;
+  system.dataset.ampReady='true';
+
+  var hdr=system.querySelector('#amp-hdr'),
+      burger=system.querySelector('#ampBurger'),
+      drawer=system.querySelector('#ampDrawer'),
+      scrim=system.querySelector('#ampScrim'),
+      current=null, returnFocus=null, bodyOverflow='';
+
+  /* ---- 1. Scroll: solid → glass + shrink ---- */
+  function onScroll(){hdr.classList.toggle('is-scrolled',window.pageYOffset>12);}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  /* ---- 2. Desktop mega menus (hover is CSS; click + keyboard here) ---- */
+  function closeMenus(except){
+    system.querySelectorAll('.amp-nav .nav-item.open').forEach(function(item){
+      if(item===except) return;
+      item.classList.remove('open');
+      item.querySelector('button.nav-link').setAttribute('aria-expanded','false');
+    });
+  }
+  system.querySelectorAll('.amp-nav button.nav-link').forEach(function(btn){
+    var item=btn.parentElement;
+    btn.addEventListener('click',function(){
+      closeMenus(item);
+      btn.setAttribute('aria-expanded',item.classList.toggle('open'));
+    });
+    btn.addEventListener('keydown',function(e){
+      if(e.key!=='ArrowDown') return;
+      e.preventDefault();closeMenus(item);
+      item.classList.add('open');btn.setAttribute('aria-expanded','true');
+      item.querySelector('.mega a,.mega button').focus();
+    });
+  });
+
+  /* ---- 3. Overlays: drawer + popups, one open at a time ---- */
+  function setOpen(el,on){
+    el.classList.toggle('on',on);
+    el.setAttribute('aria-hidden',!on);
+    el.toggleAttribute('inert',!on);
+    if(el===drawer){
+      scrim.classList.toggle('on',on);burger.classList.toggle('on',on);
+      burger.setAttribute('aria-expanded',on);
+      burger.setAttribute('aria-label',on?'Close menu':'Open menu');
+    }
+  }
+  function openOverlay(el,trigger){
+    closeOverlay(false);closeMenus();
+    returnFocus=trigger.closest('.amp-drawer')?burger:trigger;
+    bodyOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    setOpen(el,true);current=el;
+    setTimeout(function(){el.querySelector(el===drawer?'.dr-close':'input').focus();},120);
+  }
+  function closeOverlay(restoreFocus){
+    if(!current) return;
+    setOpen(current,false);current=null;
+    document.body.style.overflow=bodyOverflow;
+    if(restoreFocus && returnFocus) returnFocus.focus();
+  }
+
+  burger.addEventListener('click',function(){
+    current===drawer?closeOverlay(true):openOverlay(drawer,burger);
+  });
+  system.addEventListener('click',function(e){
+    if(e.target.closest('[data-amp-close]')) closeOverlay(true);
+    else if(e.target.closest('.amp-drawer a[href]')) closeOverlay(false);
+  });
+
+  /* Popup triggers work site-wide: data-amp-popup="<id>" or href="#<id>" */
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.amp-nav')) closeMenus();
+    var t=e.target.closest('[data-amp-popup],a[href^="#amp-popup-"]');
+    if(!t) return;
+    var modal=system.querySelector('#'+(t.dataset.ampPopup||t.getAttribute('href').slice(1)));
+    if(!modal) return;
+    e.preventDefault();
+    modal.querySelector('.modal-form').hidden=false;
+    modal.querySelector('.modal-success').hidden=true;
+    openOverlay(modal,t);
+  });
+
+  /* Drawer accordions */
+  system.querySelectorAll('.dr-acc').forEach(function(acc){
+    var btn=acc.querySelector('.dr-acc-btn'),panel=acc.querySelector('.dr-panel');
+    btn.addEventListener('click',function(){
+      var open=acc.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+      panel.setAttribute('aria-hidden',!open);
+      panel.toggleAttribute('inert',!open);
+      panel.style.maxHeight=open?panel.scrollHeight+'px':'0px';
+    });
+  });
+
+  /* ---- 4. Popup forms: validation + success view ----
+     ⚠ NOT CONNECTED: nothing is sent. Replace with an Elementor Form widget
+     (or post to CF7 / Brevo) before go-live. */
+  system.querySelectorAll('.modal-form').forEach(function(form){
+    function mark(el,bad){
+      el.classList.toggle('err',bad);
+      if(bad) el.setAttribute('aria-invalid','true');else el.removeAttribute('aria-invalid');
+    }
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var bad=[].filter.call(form.querySelectorAll('[required]'),function(el){
+        var invalid=!el.checkValidity()||(el.type!=='checkbox'&&!el.value.trim());
+        mark(el,invalid);return invalid;
+      });
+      if(bad.length){bad[0].focus();return;}
+      var success=form.nextElementSibling;
+      form.hidden=true;success.hidden=false;
+      success.querySelector('button').focus();
+    });
+    form.addEventListener('input',function(e){mark(e.target,false);});
+  });
+
+  /* ---- 5. Keyboard: Escape closes, Tab stays inside the open overlay ---- */
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){current?closeOverlay(true):closeMenus();return;}
+    if(e.key!=='Tab' || !current) return;
+    var items=[].filter.call(current.querySelectorAll('a[href],button,input,select,textarea'),function(el){
+      return !el.disabled && !el.closest('[inert]') && el.getClientRects().length;
+    });
+    var first=items[0],last=items[items.length-1];
+    if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}
+  });
+
+  window.addEventListener('resize',function(){
+    if(current===drawer && window.innerWidth>1200) closeOverlay(false);
+    system.querySelectorAll('.dr-acc.open .dr-panel').forEach(function(panel){
+      panel.style.maxHeight=panel.scrollHeight+'px';
+    });
+  },{passive:true});
+})();
+</script>
+</div>
+
+
+
+<!-- ============================================================
+     SHARED MOTION BOOTSTRAP — loaded once for the whole page.
+     Injects Poppins + GSAP/ScrollTrigger, exposes:
+       window.ampMotionOK()   respects reduced-motion + Elementor editor
+       window.ampGSAPReady(cb)  queues callbacks until GSAP is ready
+     Each section below registers its own animations through it.
+     ============================================================ -->
+<script>
+(function(){
+  if(!window.ampGSAPReady){(function(){
+    if(!document.getElementById('amp-fonts')){var l=document.createElement('link');l.id='amp-fonts';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap';document.head.appendChild(l);}
+    window.ampMotionOK=function(){try{if(document.body&&document.body.classList.contains('elementor-editor-active'))return false;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return false;}catch(e){}return true;};
+    var q=[],ready=false,loading=false;
+    function inj(src,cb){var e=document.querySelector('script[data-amp-lib="'+src+'"]');if(e){e.dataset.ok?cb():e.addEventListener('load',cb);return;}var s=document.createElement('script');s.src=src;s.async=false;s.setAttribute('data-amp-lib',src);s.onload=function(){s.dataset.ok='1';cb();};s.onerror=cb;document.head.appendChild(s);}
+    function flush(){ready=true;while(q.length){try{q.shift()(window.gsap,window.ScrollTrigger);}catch(e){}}if(window.ScrollTrigger){try{window.ScrollTrigger.refresh();}catch(e){}}}
+    function load(){if(ready)return;if(window.gsap&&window.ScrollTrigger){window.gsap.registerPlugin(window.ScrollTrigger);flush();return;}if(loading)return;loading=true;inj('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',function(){inj('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',function(){if(window.gsap&&window.ScrollTrigger)window.gsap.registerPlugin(window.ScrollTrigger);flush();});});}
+    window.ampGSAPReady=function(cb){if(ready){cb(window.gsap,window.ScrollTrigger);return;}q.push(cb);load();};
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(window.ScrollTrigger)window.ScrollTrigger.refresh();});
+    window.addEventListener('load',function(){if(window.ScrollTrigger)window.ScrollTrigger.refresh();});
+  })();}
+})();
+</script>
+
+<!-- ==================== BLOCK 1 · HERO Section ==================== -->
+<!-- ============================================================
+     SECTION 01 · HERO
+     ============================================================ -->
+<section id="amp-about-hero" class="amp-hero" style="background:#F4F7FA;">
+<style>
+/* ---- tokens (scoped so the snippet is portable) ---- */
+#amp-about-hero{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#22303f; --navy:#3D5A80; --coral:#ed6e4e; --porcelain:#F4F7FA; --white:#fff;
+  --line:rgba(61,90,128,.1);
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#F4F7FA !important;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#000000 !important;
+  padding:clamp(7rem,13vw,9.5rem) clamp(1.25rem,5vw,3rem) clamp(4rem,7vw,6rem);
+}
+#amp-about-hero, #amp-about-hero *{ box-sizing:border-box; }
+
+/* ---- ambient light background (all CSS, zero image weight) ---- */
+#amp-about-hero .amp-hero__bg{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+#amp-about-hero .amp-hero__dots{ position:absolute; inset:0; background-image:radial-gradient(rgba(61,90,128,.05) 1px,transparent 1px); background-size:30px 30px; -webkit-mask-image:radial-gradient(120% 90% at 88% 12%,#000,transparent 68%); mask-image:radial-gradient(120% 90% at 88% 12%,#000,transparent 68%); }
+#amp-about-hero .amp-hero__glow{ position:absolute; right:-8%; top:-12%; width:520px; height:520px; background:radial-gradient(circle, rgba(237,110,78,.12), transparent 62%); }
+#amp-about-hero .amp-hero__glow2{ position:absolute; left:-12%; bottom:-24%; width:480px; height:480px; background:radial-gradient(circle, rgba(61,90,128,.13), transparent 65%); }
+
+#amp-about-hero .amp-hero__inner{ position:relative; z-index:2; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+
+/* eyebrow */
+#amp-about-hero .amp-eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-size:.74rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:#ed6e4e; margin:0 0 1.4rem; }
+#amp-about-hero .amp-eyebrow i{ width:26px; height:1px; background:var(--coral); display:inline-block; }
+#amp-about-hero .amp-eyebrow b{ width:7px; height:7px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 4px rgba(237,110,78,.18); }
+
+/* headline + rotating accent */
+#amp-about-hero .amp-hero__title{
+  font-size:clamp(2.4rem,5.4vw,4.15rem); line-height:1.05; font-weight:700;
+  letter-spacing:-.03em; margin:0 0 1.5rem; color:#000000 !important;
+}
+#amp-about-hero .amp-rotator{ display:inline-block; height:1.22em; overflow:hidden; vertical-align:bottom; position:relative; }
+#amp-about-hero .amp-rotator__list{ display:flex; flex-direction:column; animation:ampRot 9s cubic-bezier(.7,0,.3,1) infinite; }
+#amp-about-hero .amp-rotator__list span{ height:1.22em; line-height:1.22em; color:var(--coral); font-weight:700; white-space:nowrap; }
+@keyframes ampRot{
+  0%,18%   { transform:translateY(0); }
+  25%,43%  { transform:translateY(-1.22em); }
+  50%,68%  { transform:translateY(-2.44em); }
+  75%,93%  { transform:translateY(-3.66em); }
+  100%     { transform:translateY(-4.88em); }
+}
+#amp-about-hero .amp-sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+#amp-about-hero .amp-hero__lead{
+  font-size:clamp(1.02rem,1.45vw,1.2rem); font-weight:300; line-height:1.7;
+  color:rgba(0,0,0,.72) !important; max-width:46ch; margin:0 0 2.4rem;
+}
+
+/* actions / buttons */
+#amp-about-hero .amp-hero__actions{ display:flex; flex-wrap:wrap; gap:.9rem; margin-bottom:2.4rem; }
+#amp-about-hero .amp-btn{
+  display:inline-flex; align-items:center; gap:.55em;
+  font:600 .98rem/1 'Poppins',sans-serif; letter-spacing:.01em; text-decoration:none;
+  padding:1.05em 1.7em; border-radius:100px; position:relative; overflow:hidden; cursor:pointer;
+  transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s, background-color .4s, color .4s;
+}
+#amp-about-hero .amp-btn svg{ transition:transform .4s cubic-bezier(.22,1,.36,1); }
+#amp-about-hero .amp-btn--primary{ background:var(--coral); color:#fff; box-shadow:0 12px 26px -12px rgba(237,110,78,.7); }
+#amp-about-hero .amp-btn--primary:hover{ transform:translateY(-3px); box-shadow:0 20px 38px -14px rgba(237,110,78,.8); }
+#amp-about-hero .amp-btn--primary:hover svg{ transform:translateX(5px); }
+#amp-about-hero .amp-btn--ghost{ color:#000000; background:transparent; box-shadow:inset 0 0 0 1px rgba(61,90,128,.2); }
+#amp-about-hero .amp-btn--ghost:hover{ transform:translateY(-3px); box-shadow:inset 0 0 0 1px rgba(61,90,128,.5); background:rgba(61,90,128,.03); }
+
+/* est badge */
+
+/* ---- media / image slot (replaces the old 3D constellation) ---- */
+#amp-about-hero .amp-hero__media{ position:relative; }
+#amp-about-hero .amp-hero__imgwrap{ position:relative; border-radius:24px; overflow:hidden; aspect-ratio:5/4; background:#fff; box-shadow:0 34px 74px -42px rgba(61,90,128,.42), inset 0 0 0 1px rgba(61,90,128,.07); }
+#amp-about-hero .amp-hero__img{ width:100%; height:100%; object-fit:cover; display:block; }
+/* placeholder shown until you drop in a real <img> */
+#amp-about-hero .amp-hero__ph{ position:absolute; inset:0; display:grid; place-items:center; text-align:center; color:rgba(0,0,0,.4); background:linear-gradient(135deg, rgba(61,90,128,.07), rgba(237,110,78,.06)); }
+#amp-about-hero .amp-hero__ph svg{ width:46px; height:46px; stroke:rgba(61,90,128,.3); fill:none; stroke-width:1.4; margin-bottom:.7rem; }
+#amp-about-hero .amp-hero__ph span{ font-size:.76rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+/* flat accent card on the image corner (no 3D / no parallax) */
+#amp-about-hero .amp-hero__tag{ position:absolute; left:-14px; bottom:26px; min-width:120px; min-height:48px; background:#fff; border-radius:14px; padding:.85rem 1.15rem; box-shadow:0 22px 44px -24px rgba(61,90,128,.5), inset 0 0 0 1px rgba(61,90,128,.06); display:flex; align-items:center; gap:.75rem; }
+#amp-about-hero .amp-hero__tag .dot{ width:9px; height:9px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 4px rgba(237,110,78,.16); }
+#amp-about-hero .amp-hero__tag .k{ font-size:1.35rem; font-weight:800; color:#000000; line-height:1; }
+#amp-about-hero .amp-hero__tag .l{ font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(0,0,0,.55); margin-top:.15rem; }
+
+/* reveal states (added only when motion is OK) */
+#amp-about-hero.amp-anim .amp-reveal{ opacity:0; transform:translateY(24px); }
+#amp-about-hero.amp-anim .amp-hero__media{ opacity:0; transform:translateY(28px); }
+
+
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-hero [class*="__inner"], #amp-about-hero [class*="__inner"] > *,
+#amp-about-hero [class*="__grid"],  #amp-about-hero [class*="__grid"] > *,
+#amp-about-hero [class*="__list"],  #amp-about-hero [class*="__list"] > *,
+#amp-about-hero [class*="__wrap"],  #amp-about-hero [class*="__wrap"] > *{ min-width:0; }
+#amp-about-hero img, #amp-about-hero video{ max-width:100%; height:auto; }
+#amp-about-hero h1, #amp-about-hero h2, #amp-about-hero h3, #amp-about-hero p, #amp-about-hero li{ overflow-wrap:break-word; }
+
+@media (max-width:900px){
+  #amp-about-hero .amp-hero__inner{ grid-template-columns:1fr; }
+  #amp-about-hero .amp-hero__media{ max-width:520px; }
+}
+/* --- mobile legibility & tap targets --- */
+@media (max-width:900px){
+  #amp-about-hero .amp-hero__tag .l{ font-size:.72rem; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #amp-about-hero .amp-rotator__list{ animation:none; }
+  #amp-about-hero.amp-anim .amp-reveal,#amp-about-hero.amp-anim .amp-hero__media{ opacity:1; transform:none; }
+}
+</style>
+
+<div class="amp-hero__bg" aria-hidden="true">
+  <div class="amp-hero__dots"></div>
+  <div class="amp-hero__glow"></div>
+  <div class="amp-hero__glow2"></div>
+</div>
+
+<div class="amp-hero__inner">
+  <div class="amp-hero__content">
+    <span class="amp-eyebrow amp-reveal">About AMPCONNECT</span>
+    <h1 class="amp-hero__title amp-reveal">
+      Connecting the region<br>to the world&rsquo;s best
+      <span class="amp-rotator"><span class="amp-rotator__list">
+        <span>technology</span>
+        <span>infrastructure</span>
+        <span>networks</span>
+        <span>partners</span>
+        <span>technology</span>
+      </span></span>
+      <span class="amp-sr-only">technology, infrastructure, networks and partners.</span>
+    </h1>
+    <p class="amp-hero__lead amp-reveal">For more than three decades, AMPCONNECT has helped partners across the UAE, GCC and Africa operate more efficiently &mdash; a value-added distributor that goes beyond the box to enable real business growth.</p>
+    <div class="amp-hero__actions amp-reveal">
+      <a class="amp-btn amp-btn--primary" href="contact-us.html">Partner with us
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="amp-btn amp-btn--ghost" href="careers.html">Join our team</a>
+    </div>
+  </div>
+
+  <div class="amp-hero__media">
+    <div class="amp-hero__imgwrap">
+      <!-- ===== ADD HERO IMAGE HERE =====
+           Replace the placeholder <div class="amp-hero__ph">…</div> below with:
+           <img class="amp-hero__img" src="YOUR_IMAGE_URL" alt="AMPCONNECT team / infrastructure"> -->
+      <img class="amp-hero__img" src="assets/about-us/about-hero.webp" alt="Modern data centre and networking infrastructure — AMPCONNECT value-added IT distribution" loading="lazy">
+    </div>
+    <div class="amp-hero__tag">
+     
+      <div style="display:flex;flex-direction:column;line-height:1;">
+        <span class="k">30+</span>
+        <span class="l">Years in the region</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  
+
+  if(window.__ampAboutHeroInit) return; window.__ampAboutHeroInit = true;
+  var root = document.getElementById('amp-about-hero'); if(!root) return;
+  if(!window.ampMotionOK()) return;
+  root.classList.add('amp-anim');
+
+  window.ampGSAPReady(function(gsap, ST){
+    if(!gsap || !ST){ root.classList.remove('amp-anim'); return; }
+    try{
+      gsap.to(root.querySelectorAll('.amp-reveal'),{opacity:1,y:0,duration:.85,ease:'power3.out',stagger:.1,
+        scrollTrigger:{trigger:root,start:'top 78%'}});
+      gsap.to(root.querySelector('.amp-hero__media'),{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.15,
+        scrollTrigger:{trigger:root,start:'top 78%'}});
+    }catch(e){ root.classList.remove('amp-anim'); }
+  });
+})();
+</script>
+</section>
+
+<!-- ==================== BLOCK 2 · who-we-are ==================== -->
+<!-- ============================================================
+     SECTION 02 · INTRO / WHO WE ARE
+     ============================================================ -->
+
+<section id="amp-about-intro" class="amp-intro" style="background:#ffffff;">
+
+<style>
+
+#amp-about-intro{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#3d5a80;
+  --navy:#3D5A80;
+  --coral:#ed6e4e;
+  --porcelain:#F4F7FA;
+  --white:#fff;
+
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+
+  background:#ffffff !important;
+
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#000000 !important;
+
+  padding:clamp(5rem,10vw,8rem) clamp(1.25rem,5vw,3rem);
+  padding-top:clamp(1.5rem,3vw,2.4rem);
+}
+
+#amp-about-intro *{
+  box-sizing:border-box;
+}
+
+#amp-about-intro .amp-intro__inner{
+  position:relative;
+  z-index:2;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+
+/* ================= EYEBROW ================= */
+
+#amp-about-intro .amp-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+
+  font-size:.74rem;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+
+  color:#ed6e4e;
+
+  margin:0 0 1.6rem;
+}
+
+#amp-about-intro .amp-eyebrow i{
+  width:26px;
+  height:1px;
+  background:var(--coral);
+}
+
+
+/* ================= STATEMENT ROW ================= */
+
+#amp-about-intro .amp-intro__top{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:clamp(2rem,5vw,4rem);
+
+  align-items:start;
+
+  margin-bottom:0;
+}
+
+#amp-about-intro .amp-intro__h{
+  font-size:clamp(1.8rem,3.6vw,2.8rem);
+
+  font-weight:700;
+
+  letter-spacing:-.025em;
+
+  line-height:1.12;
+
+  margin:0;
+
+  color:#000000 !important;
+}
+
+#amp-about-intro .amp-intro__h em{
+  color:var(--coral);
+  font-style:normal;
+}
+
+
+/* ================= CHIPS ================= */
+
+#amp-about-intro .amp-chips{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:.6rem;
+
+  margin-top:1.8rem;
+}
+
+#amp-about-intro .amp-chip{
+  font-size:.78rem;
+  font-weight:500;
+
+  padding:.55em 1.05em;
+
+  border-radius:100px;
+
+  background:var(--porcelain);
+
+  color:#000000;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(61,90,128,.08);
+}
+
+
+/* ================= PARAGRAPHS ================= */
+
+#amp-about-intro .amp-intro__p{
+  font-size:clamp(.98rem,1.3vw,1.08rem);
+
+  font-weight:300;
+
+  line-height:1.72;
+
+  color:rgba(0,0,0,.72) !important;
+
+  margin:0 0 1.1rem;
+}
+
+#amp-about-intro .amp-intro__p:last-child{
+  margin-bottom:0;
+}
+
+#amp-about-intro .amp-intro__p strong{
+  font-weight:600;
+  color:#000000;
+}
+
+
+/* ================= MEDIA ================= */
+
+#amp-about-intro .amp-intro__media{
+  margin-top:clamp(1.6rem,3vw,2.2rem);
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  aspect-ratio:16/11;
+
+  background:#fff;
+
+  box-shadow:
+    0 30px 60px -42px rgba(61,90,128,.45),
+    inset 0 0 0 1px rgba(61,90,128,.07);
+}
+
+#amp-about-intro .amp-intro__media img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+}
+
+
+/* ================= ANIMATION ================= */
+
+#amp-about-intro.amp-anim .amp-fade{
+  opacity:0;
+  transform:translateY(22px);
+}
+
+
+
+/* ================= TABLET ================= */
+
+
+#amp-about-intro, #amp-about-intro *{ box-sizing:border-box; }
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-intro [class*="__inner"], #amp-about-intro [class*="__inner"] > *,
+#amp-about-intro [class*="__grid"],  #amp-about-intro [class*="__grid"] > *,
+#amp-about-intro [class*="__list"],  #amp-about-intro [class*="__list"] > *,
+#amp-about-intro [class*="__wrap"],  #amp-about-intro [class*="__wrap"] > *{ min-width:0; }
+#amp-about-intro img, #amp-about-intro video{ max-width:100%; height:auto; }
+#amp-about-intro h1, #amp-about-intro h2, #amp-about-intro h3, #amp-about-intro p, #amp-about-intro li{ overflow-wrap:break-word; }
+
+@media (max-width:900px){
+
+  #amp-about-intro .amp-intro__top{
+    grid-template-columns:1fr;
+    gap:1.8rem;
+  }
+
+}
+
+
+/* ================= REDUCED MOTION ================= */
+
+@media (prefers-reduced-motion:reduce){
+
+  #amp-about-intro.amp-anim .amp-fade{
+
+    opacity:1;
+    transform:none;
+
+  }
+
+}
+
+</style>
+
+
+<div class="amp-intro__inner">
+
+
+  <!-- ================= INTRO ================= -->
+
+  <span class="amp-eyebrow amp-fade">
+    Who we are
+  </span>
+
+
+  <div class="amp-intro__top">
+
+
+    <!-- LEFT -->
+
+    <div class="amp-fade">
+
+      <h2 class="amp-intro__h">
+        Transforming IT distribution
+        <em>since 1987</em>
+      </h2>
+
+
+      <div class="amp-intro__media">
+
+        <img
+          src="https://ampconnectme.com/wp-content/uploads/2026/09/ampconnect-office.webp"
+          alt="Reception area at the AMPCONNECT office in Dubai, with the AMPCONNECT logo displayed on the feature wall"
+          loading="lazy"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT -->
+
+    <div class="amp-fade">
+
+      <p class="amp-intro__p">
+
+        <strong>AMPCONNECT</strong>
+        is a fast-growing technology distribution company in the region,
+        enabling business partners to operate more efficiently and successfully
+        in the markets they serve.
+
+      </p>
+
+
+      <p class="amp-intro__p">
+
+        Since 1987, our local experts have transformed the IT components
+        and passive networking solutions marketplace with high-quality
+        products that deliver reliable, effective and effortless connections.
+
+      </p>
+
+
+      <p class="amp-intro__p">
+
+        We specialize in structured cabling solutions and an ISO-certified
+        value-added distributorship of passive networking products,
+        OEM and multi-tech partner IT components throughout the UAE,
+        GCC and Africa.
+
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  </div>
+
+
+
+<!-- ============================================================
+     GSAP ANIMATION
+     ============================================================ -->
+
+<script>
+
+(function(){
+
+  
+
+
+
+  if(window.__ampAboutIntroInit)
+    return;
+
+
+  window.__ampAboutIntroInit=true;
+
+
+  var root=
+    document.getElementById(
+      'amp-about-intro'
+    );
+
+
+  if(!root)
+    return;
+
+
+  if(!window.ampMotionOK())
+    return;
+
+
+  root.classList.add('amp-anim');
+
+
+  window.ampGSAPReady(function(gsap,ST){
+
+    if(!gsap || !ST){
+
+      root.classList.remove('amp-anim');
+
+      return;
+
+    }
+
+
+    try{
+
+      gsap.utils
+        .toArray(
+          root.querySelectorAll('.amp-fade')
+        )
+        .forEach(function(el){
+
+          gsap.to(
+            el,
+            {
+              opacity:1,
+              y:0,
+              duration:.8,
+              ease:'power3.out',
+
+              scrollTrigger:{
+                trigger:el,
+                start:'top 88%'
+              }
+
+            }
+          );
+
+        });
+
+    }catch(e){
+
+      root.classList.remove('amp-anim');
+
+    }
+
+  });
+
+
+})();
+
+</script>
+
+</section>
+
+<!-- ==================== BLOCK 3 · stats-counter ==================== -->
+<!-- ============================================================
+     SECTION 03 · STATS / COUNTER STRIP
+     ============================================================ -->
+<section id="amp-about-stats" class="amp-stats">
+  <div class="amp-wrap">
+    <div class="amp-grid">
+      <div class="amp-stat amp-reveal">
+        <div class="amp-num" data-amp-count="30">30<span class="amp-plus">+</span></div>
+        <div class="amp-lbl">Years of expertise</div>
+      </div>
+      <div class="amp-stat amp-reveal">
+        <div class="amp-num" data-amp-count="55">55<span class="amp-plus">+</span></div>
+        <div class="amp-lbl">Countries served</div>
+      </div>
+      <div class="amp-stat amp-reveal">
+        <div class="amp-num" data-amp-count="1000">1000<span class="amp-plus">+</span></div>
+        <div class="amp-lbl">Partners</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ---- tokens (scoped so the snippet is portable) ---- */
+#amp-about-stats{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#22303f; --navy:#3D5A80; --coral:#ed6e4e; --porcelain:#F4F7FA; --white:#fff;
+  --muted:#5f7086; --line:#e2e8f1; --maxw:1240px;
+  display:block;
+  background:#ffffff !important;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#000000 !important;
+}
+#amp-about-stats, #amp-about-stats *{ box-sizing:border-box; }
+#amp-about-stats .amp-wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+#amp-about-stats .amp-grid{ display:grid; grid-template-columns:repeat(3,1fr); }
+#amp-about-stats .amp-stat{ padding:40px 28px; text-align:center; border-right:1px solid var(--line); }
+#amp-about-stats .amp-stat:last-child{ border-right:none; }
+#amp-about-stats .amp-num{
+  font-family:'Poppins',system-ui,sans-serif; font-weight:700; line-height:1;
+  font-size:clamp(2.2rem,4vw,3.4rem); color:var(--navy);
+  letter-spacing:-.02em;
+}
+#amp-about-stats .amp-num .amp-plus{ color:var(--coral); }
+#amp-about-stats .amp-lbl{
+  margin-top:10px; font-size:.74rem; font-weight:600; letter-spacing:.24em;
+  color:var(--muted); text-transform:uppercase;
+}
+
+/* ---- entrance reveal (matches the other About sections) ---- */
+#amp-about-stats.amp-anim .amp-reveal{ opacity:0; transform:translateY(24px); }
+
+
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-stats [class*="__inner"], #amp-about-stats [class*="__inner"] > *,
+#amp-about-stats [class*="__grid"],  #amp-about-stats [class*="__grid"] > *,
+#amp-about-stats [class*="__list"],  #amp-about-stats [class*="__list"] > *,
+#amp-about-stats [class*="__wrap"],  #amp-about-stats [class*="__wrap"] > *{ min-width:0; }
+#amp-about-stats img, #amp-about-stats video{ max-width:100%; height:auto; }
+#amp-about-stats h1, #amp-about-stats h2, #amp-about-stats h3, #amp-about-stats p, #amp-about-stats li{ overflow-wrap:break-word; }
+
+@media(max-width:768px){
+  #amp-about-stats .amp-stat{ padding:32px 16px; }
+}
+@media(max-width:560px){
+  #amp-about-stats .amp-grid{ grid-template-columns:1fr; }
+  #amp-about-stats .amp-stat{ padding:26px 14px; border-right:none; border-bottom:1px solid var(--line); }
+  #amp-about-stats .amp-stat:last-child{ border-bottom:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  #amp-about-stats.amp-anim .amp-reveal{ opacity:1; transform:none; }
+}
+</style>
+
+<script>
+(function(){
+  
+
+  if(window.__ampAboutStatsInit) return; window.__ampAboutStatsInit = true;
+  var root = document.getElementById('amp-about-stats'); if(!root) return;
+  if(!window.ampMotionOK()) return;
+  root.classList.add('amp-anim');
+
+  window.ampGSAPReady(function(gsap, ST){
+    if(!gsap || !ST){ root.classList.remove('amp-anim'); return; }
+    try{
+      gsap.to(root.querySelectorAll('.amp-reveal'),{opacity:1,y:0,duration:.85,ease:'power3.out',stagger:.1,
+        scrollTrigger:{trigger:root,start:'top 82%'}});
+
+      root.querySelectorAll('.amp-num').forEach(function(el){
+        var target = +el.getAttribute('data-amp-count');
+        var plus = el.querySelector('.amp-plus');
+        var node = el.firstChild;
+        if(!node || node.nodeType !== 3){ node = document.createTextNode('0'); el.insertBefore(node, plus); }
+        node.nodeValue = '0';
+        var obj = {v:0};
+        ST.create({ trigger:el, start:'top 92%', once:true, onEnter:function(){
+          gsap.to(obj,{v:target,duration:1.5,ease:'power2.out',
+            onUpdate:function(){ node.nodeValue = Math.round(obj.v); }});
+        }});
+      });
+    }catch(e){ root.classList.remove('amp-anim'); }
+  });
+})();
+/* end amp-about-stats */
+</script>
+
+<!-- ==================== BLOCK 4 · Our-Journey ==================== -->
+<!-- ============================================================
+     SECTION 04 · OUR JOURNEY
+     Desktop: horizontal scrubbed timeline
+     Mobile: original vertical scrubbed timeline
+     ============================================================ -->
+<section id="amp-about-journey" class="amp-jny" style="background:#FFFFFF;">
+<style>
+#amp-about-journey{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#3d5a80; --navy:#3D5A80; --coral:#ed6e4e; --porcelain:#F4F7FA; --line:rgba(61,90,128,.12);
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#FFFFFF !important;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#000000 !important;
+  padding:clamp(5rem,10vw,8rem) clamp(1.25rem,5vw,3rem);
+  padding-top:clamp(1.5rem,3vw,2.4rem);
+}
+#amp-about-journey, #amp-about-journey *{ box-sizing:border-box; }
+#amp-about-journey .amp-jny__inner{ position:relative; z-index:2; max-width:1100px; margin:0 auto; }
+
+#amp-about-journey .amp-jny__head{ max-width:640px; margin-bottom:clamp(3rem,6vw,4.5rem); }
+#amp-about-journey .amp-eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-size:.74rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:#ed6e4e; margin:0 0 1.4rem; }
+#amp-about-journey .amp-eyebrow i{ width:26px; height:1px; background:var(--coral); }
+#amp-about-journey .amp-jny__title{ font-size:clamp(1.9rem,4vw,3rem); font-weight:700; letter-spacing:-.025em; line-height:1.08; margin:0 0 1rem; color:#000000 !important; }
+#amp-about-journey .amp-jny__sub{ font-size:clamp(1rem,1.3vw,1.15rem); font-weight:300; line-height:1.6; color:rgba(0,0,0,.66) !important; margin:0; }
+
+/* Desktop timeline: four milestones on one horizontal strip. */
+#amp-about-journey .amp-jny__time{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(1rem,2.4vw,2rem);
+  padding-top:56px;
+}
+#amp-about-journey .amp-jny__spine{
+  position:absolute;
+  left:12.5%;
+  right:12.5%;
+  top:7px;
+  height:2px;
+  background:rgba(61,90,128,.1);
+  border-radius:2px;
+  overflow:hidden;
+}
+#amp-about-journey .amp-jny__fill{
+  position:absolute;
+  left:0;
+  top:0;
+  width:0%;
+  height:100%;
+  background:var(--coral);
+  border-radius:2px;
+}
+#amp-about-journey .amp-jny__item{ position:relative; min-width:0; padding:0; text-align:center; }
+#amp-about-journey .amp-jny__dot{
+  position:absolute;
+  left:50%;
+  top:-56px;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:inset 0 0 0 2px rgba(61,90,128,.22);
+  transform:translateX(-50%);
+  transition:box-shadow .4s ease, transform .4s ease;
+}
+#amp-about-journey .amp-jny__item.on .amp-jny__dot{
+  box-shadow:inset 0 0 0 5px var(--coral);
+  transform:translateX(-50%) scale(1.12);
+}
+#amp-about-journey .amp-jny__yr{
+  font-size:clamp(1.25rem,2.2vw,2.1rem); font-weight:700; letter-spacing:-.02em; line-height:1.1;
+  color:rgba(0,0,0,.28); margin-bottom:.55rem; transition:color .4s ease;
+}
+#amp-about-journey .amp-jny__item.on .amp-jny__yr{ color:var(--coral); }
+#amp-about-journey .amp-jny__st{ font-size:clamp(1.05rem,1.7vw,1.4rem); font-weight:600; letter-spacing:-.01em; margin:0 0 .5rem; color:#000000 !important; }
+#amp-about-journey .amp-jny__tx{ font-size:clamp(.86rem,1.1vw,.98rem); font-weight:300; line-height:1.65; color:rgba(0,0,0,.66) !important; margin:0 auto; max-width:25ch; }
+
+#amp-about-journey.amp-anim .amp-jny__item{ opacity:0; transform:translateX(18px); }
+#amp-about-journey.amp-anim .amp-fade{ opacity:0; transform:translateY(18px); }
+
+/* Mobile keeps the original vertical timeline and scroll behavior. */
+
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-journey [class*="__inner"], #amp-about-journey [class*="__inner"] > *,
+#amp-about-journey [class*="__grid"],  #amp-about-journey [class*="__grid"] > *,
+#amp-about-journey [class*="__list"],  #amp-about-journey [class*="__list"] > *,
+#amp-about-journey [class*="__wrap"],  #amp-about-journey [class*="__wrap"] > *{ min-width:0; }
+#amp-about-journey img, #amp-about-journey video{ max-width:100%; height:auto; }
+#amp-about-journey h1, #amp-about-journey h2, #amp-about-journey h3, #amp-about-journey p, #amp-about-journey li{ overflow-wrap:break-word; }
+
+@media (max-width:768px){
+  #amp-about-journey .amp-jny__time{
+    display:block;
+    padding-top:0;
+    padding-left:clamp(2.2rem,5vw,3.4rem);
+  }
+  #amp-about-journey .amp-jny__spine{
+    left:8px;
+    right:auto;
+    top:6px;
+    bottom:6px;
+    width:2px;
+    height:auto;
+  }
+  #amp-about-journey .amp-jny__fill{ width:100%; height:0%; }
+  #amp-about-journey .amp-jny__item{
+    text-align:left;
+    padding-bottom:clamp(2.6rem,5vw,3.6rem);
+  }
+  #amp-about-journey .amp-jny__item:last-child{ padding-bottom:0; }
+  #amp-about-journey .amp-jny__dot{
+    left:calc(-1 * clamp(2.2rem,5vw,3.4rem) + 2px);
+    top:.55rem;
+    transform:none;
+  }
+  #amp-about-journey .amp-jny__item.on .amp-jny__dot{ transform:scale(1.12); }
+  #amp-about-journey .amp-jny__yr{ font-size:clamp(1.4rem,6vw,2.1rem); line-height:1; }
+  #amp-about-journey .amp-jny__st{ font-size:clamp(1.15rem,4.5vw,1.5rem); }
+  #amp-about-journey .amp-jny__tx{ font-size:1rem; margin:0; max-width:46ch; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #amp-about-journey.amp-anim .amp-jny__item,
+  #amp-about-journey.amp-anim .amp-fade{ opacity:1; transform:none; }
+}
+</style>
+
+<div class="amp-jny__inner">
+  <div class="amp-jny__head">
+    <span class="amp-eyebrow amp-fade">Our journey</span>
+    <h2 class="amp-jny__title amp-fade">Three decades of growth across the region</h2>
+    <p class="amp-jny__sub amp-fade">From a local structured-cabling specialist to a value-added distributor with a global brand ecosystem.</p>
+  </div>
+
+  <div class="amp-jny__time">
+    <div class="amp-jny__spine" aria-hidden="true"><span class="amp-jny__fill"></span></div>
+
+    <article class="amp-jny__item">
+      <span class="amp-jny__dot" aria-hidden="true"></span>
+      <div class="amp-jny__yr">1987</div>
+      <h3 class="amp-jny__st">Founded</h3>
+      <p class="amp-jny__tx">Established as a local specialist in IT components and passive networking solutions.</p>
+    </article>
+
+    <article class="amp-jny__item">
+      <span class="amp-jny__dot" aria-hidden="true"></span>
+      <div class="amp-jny__yr">Regional</div>
+      <h3 class="amp-jny__st">Expansion</h3>
+      <p class="amp-jny__tx">Grew our reach across the UAE, GCC and Africa with structured cabling and connectivity.</p>
+    </article>
+
+    <article class="amp-jny__item">
+      <span class="amp-jny__dot" aria-hidden="true"></span>
+      <div class="amp-jny__yr">Value-Added</div>
+      <h3 class="amp-jny__st">Distribution</h3>
+      <p class="amp-jny__tx">Became an ISO-certified value-added distributor, enabling partners beyond simple supply.</p>
+    </article>
+
+    <article class="amp-jny__item">
+      <span class="amp-jny__dot" aria-hidden="true"></span>
+      <div class="amp-jny__yr">Today</div>
+      <h3 class="amp-jny__st">Ecosystem</h3>
+      <p class="amp-jny__tx">A trusted partner backed by a 600+ brand ecosystem and a full value-added services model.</p>
+    </article>
+  </div>
+</div>
+
+<script>
+(function(){
+  
+
+  if(window.__ampAboutJourneyInit) return; window.__ampAboutJourneyInit = true;
+  var root = document.getElementById('amp-about-journey'); if(!root) return;
+  if(!window.ampMotionOK()) return;
+  root.classList.add('amp-anim');
+
+  window.ampGSAPReady(function(gsap, ST){
+    if(!gsap || !ST){ root.classList.remove('amp-anim'); return; }
+    try{
+      gsap.utils.toArray(root.querySelectorAll('.amp-fade')).forEach(function(el){
+        gsap.to(el,{opacity:1,y:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+      });
+
+      var time = root.querySelector('.amp-jny__time');
+      var fill = root.querySelector('.amp-jny__fill');
+      var items = gsap.utils.toArray(root.querySelectorAll('.amp-jny__item'));
+      var mm = gsap.matchMedia();
+
+      mm.add('(min-width: 769px)', function(){
+        /* Reveal the horizontal strip as one sequence. */
+        gsap.to(items,{
+          opacity:1,
+          x:0,
+          duration:.7,
+          ease:'power3.out',
+          stagger:.12,
+          scrollTrigger:{trigger:time,start:'top 84%',once:true}
+        });
+
+        items[0].classList.add('on');
+
+        /* Vertical page scrolling scrubs the desktop line from left to right. */
+        gsap.fromTo(fill,{width:'0%',height:'100%'},{
+          width:'100%',
+          height:'100%',
+          ease:'none',
+          scrollTrigger:{
+            trigger:time,
+            start:'top 72%',
+            end:'bottom 38%',
+            scrub:.5,
+            onUpdate:function(self){
+              var index=Math.min(items.length-1,Math.floor(self.progress*items.length));
+              items.forEach(function(item,i){item.classList.toggle('on',i===index);});
+            }
+          }
+        });
+
+        return function(){
+          items.forEach(function(item){item.classList.remove('on');});
+          gsap.set(fill,{clearProps:'width,height'});
+        };
+      });
+
+      mm.add('(max-width: 768px)', function(){
+        /* Original mobile behavior: milestones reveal and activate vertically. */
+        items.forEach(function(item){
+          gsap.to(item,{opacity:1,x:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:item,start:'top 82%'}});
+          ST.create({
+            trigger:item,
+            start:'top 62%',
+            end:'bottom 40%',
+            onToggle:function(self){item.classList.toggle('on',self.isActive);},
+            onEnter:function(){item.classList.add('on');}
+          });
+        });
+
+        gsap.fromTo(fill,{height:'0%',width:'100%'},{
+          height:'100%',
+          width:'100%',
+          ease:'none',
+          scrollTrigger:{trigger:time,start:'top 58%',end:'bottom 62%',scrub:.5}
+        });
+
+        return function(){
+          items.forEach(function(item){item.classList.remove('on');});
+          gsap.set(fill,{clearProps:'width,height'});
+        };
+      });
+    }catch(e){ root.classList.remove('amp-anim'); }
+  });
+})();
+</script>
+</section>
+
+<!-- ==================== BLOCK 5 · Part-of-something-bigger ==================== -->
+<!-- ============================================================
+     SECTION 05 · SHARAFI HOLDING GROUP (depth panel)
+     ============================================================ -->
+<section id="amp-about-group" class="amp-grp" style="background:#3d5a80;">
+<style>
+#amp-about-group{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#3d5a80; --navy:#3D5A80; --coral:#ed6e4e; --white:#fff; --line:rgba(255,255,255,.12);
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#3d5a80 !important;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#fff !important;
+padding:clamp(5rem,10vw,8rem) clamp(1.25rem,5vw,3rem);
+padding-top:clamp(1.5rem,3vw,2.4rem);
+}
+#amp-about-group, #amp-about-group *{ box-sizing:border-box; }
+#amp-about-group .amp-grp__glow{ position:absolute; right:-10%; top:20%; width:560px; height:560px; background:radial-gradient(circle, rgba(61,90,128,.5), transparent 62%); z-index:0; pointer-events:none; }
+#amp-about-group .amp-grp__grid{ position:absolute; inset:0; z-index:0; pointer-events:none; background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px); background-size:30px 30px; -webkit-mask-image:radial-gradient(100% 100% at 20% 30%,#000,transparent 75%); mask-image:radial-gradient(100% 100% at 20% 30%,#000,transparent 75%); }
+
+#amp-about-group .amp-grp__inner{ position:relative; z-index:2; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:clamp(2.5rem,6vw,5rem); align-items:center; }
+
+#amp-about-group .amp-eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-size:.74rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color: #ed6e4e; margin:0 0 1.4rem; }
+#amp-about-group .amp-eyebrow i{ width:26px; height:1px; background:var(--coral); }
+#amp-about-group .amp-grp__title{ font-size:clamp(1.9rem,4vw,3rem); font-weight:700; letter-spacing:-.025em; line-height:1.08; margin:0 0 1.4rem; color:#fff !important; }
+#amp-about-group .amp-grp__p{ font-size:clamp(1rem,1.3vw,1.12rem); font-weight:300; line-height:1.7; color:rgba(255,255,255,.76) !important; margin:0 0 1.2rem; max-width:44ch; }
+/* depth stack graphic */
+#amp-about-group .amp-grp__visual{ position:relative; height:min(52vw,420px); }
+#amp-about-group .amp-panel{
+  position:absolute; border-radius:20px; padding:1.4rem 1.5rem;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12), 0 40px 80px -46px rgba(0,0,0,.7);
+  backdrop-filter:blur(3px);
+}
+#amp-about-group .amp-panel--back{ inset:2% 0 auto 6%; height:58%; background:rgba(61,90,128,.16); }
+#amp-about-group .amp-panel--front{ inset:auto 6% 4% 0; height:56%; background:rgba(61,90,128,.72); box-shadow:inset 0 0 0 1px rgba(237,110,78,.28), 0 44px 90px -44px rgba(0,0,0,.8); }
+#amp-about-group .amp-panel__tag{ font-size:.62rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:.5rem; }
+#amp-about-group .amp-panel__name{ font-size:clamp(1.05rem,2vw,1.5rem); font-weight:700; letter-spacing:-.01em; color:#fff; line-height:1.15; }
+#amp-about-group .amp-panel--front .amp-panel__name em{ color:var(--coral); font-style:normal; }
+#amp-about-group .amp-panel__row{ display:flex; gap:1.2rem; margin-top:1rem; }
+#amp-about-group .amp-panel__row div span{ display:block; }
+#amp-about-group .amp-panel__k{ font-size:1.3rem; font-weight:700; color:#fff; line-height:1; }
+#amp-about-group .amp-panel__l{ font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.5); margin-top:.3rem; }
+#amp-about-group .amp-link-svg{ position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:visible; }
+
+#amp-about-group.amp-anim .amp-fade{ opacity:0; transform:translateY(22px); }
+#amp-about-group.amp-anim .amp-panel--back{ opacity:0; transform:translateY(-16px); }
+#amp-about-group.amp-anim .amp-panel--front{ opacity:0; transform:translateY(20px); }
+
+
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-group [class*="__inner"], #amp-about-group [class*="__inner"] > *,
+#amp-about-group [class*="__grid"],  #amp-about-group [class*="__grid"] > *,
+#amp-about-group [class*="__list"],  #amp-about-group [class*="__list"] > *,
+#amp-about-group [class*="__wrap"],  #amp-about-group [class*="__wrap"] > *{ min-width:0; }
+#amp-about-group img, #amp-about-group video{ max-width:100%; height:auto; }
+#amp-about-group h1, #amp-about-group h2, #amp-about-group h3, #amp-about-group p, #amp-about-group li{ overflow-wrap:break-word; }
+
+@media (max-width:900px){
+  #amp-about-group .amp-grp__inner{ grid-template-columns:1fr; }
+  #amp-about-group .amp-grp__visual{ height:min(78vw,360px); max-width:480px; margin-top:1rem; }
+}
+/* --- mobile legibility & tap targets --- */
+@media (max-width:900px){
+  #amp-about-group .amp-panel__tag{ font-size:.72rem; }
+  #amp-about-group .amp-panel__l{ font-size:.7rem; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #amp-about-group.amp-anim .amp-fade,#amp-about-group.amp-anim .amp-panel--back,#amp-about-group.amp-anim .amp-panel--front{ opacity:1; transform:none; }
+}
+</style>
+
+<div class="amp-grp__glow" aria-hidden="true"></div>
+<div class="amp-grp__grid" aria-hidden="true"></div>
+
+<div class="amp-grp__inner">
+  <div class="amp-grp__text">
+    <span class="amp-eyebrow amp-fade">Part of something bigger</span>
+    <p class="amp-grp__p amp-fade">AMPCONNECT operates as part of the Sharafi Holding Group, giving our partners the stability, reach and backing of an established regional group, alongside the agility of a specialist technology distributor.</p>
+    <p class="amp-grp__p amp-fade">That foundation lets us invest in long-term brand relationships and value-added services, so our partners can scale with confidence across the UAE, GCC and Africa.</p>
+  </div>
+
+  <div class="amp-grp__visual" aria-hidden="true">
+    <svg class="amp-link-svg" viewBox="0 0 400 400"><path d="M120 120 C 200 190, 200 210, 280 300" stroke="rgba(237,110,78,.4)" stroke-width="1.4" stroke-dasharray="3 6" fill="none"/></svg>
+    <div class="amp-panel amp-panel--back" data-depth="0.06">
+      <div class="amp-panel__tag">The group behind us</div>
+      <div class="amp-panel__name">Sharafi Holding Group</div>
+      <div class="amp-panel__row">
+        <div><span class="amp-panel__k">Regional</span><span class="amp-panel__l">Backing &amp; reach</span></div>
+        <div><span class="amp-panel__k">Stable</span><span class="amp-panel__l">Established group</span></div>
+      </div>
+    </div>
+    <div class="amp-panel amp-panel--front" data-depth="0.16">
+      <div class="amp-panel__tag">The specialist</div>
+      <div class="amp-panel__name"><em>AMPCONNECT</em><br>Value-added distributor</div>
+      <div class="amp-panel__row">
+        <div><span class="amp-panel__k">Agile</span><span class="amp-panel__l">Fast to market</span></div>
+        <div><span class="amp-panel__k">Focused</span><span class="amp-panel__l">IT distribution</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  
+
+  if(window.__ampAboutGroupInit) return; window.__ampAboutGroupInit = true;
+  var root = document.getElementById('amp-about-group'); if(!root) return;
+  if(!window.ampMotionOK()) return;
+  root.classList.add('amp-anim');
+
+  window.ampGSAPReady(function(gsap, ST){
+    if(!gsap || !ST){ root.classList.remove('amp-anim'); return; }
+    try{
+      gsap.utils.toArray(root.querySelectorAll('.amp-fade')).forEach(function(el){
+        gsap.to(el,{opacity:1,y:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+      });
+      gsap.to(root.querySelector('.amp-panel--back'),{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:root.querySelector('.amp-grp__visual'),start:'top 80%'}});
+      gsap.to(root.querySelector('.amp-panel--front'),{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.15,scrollTrigger:{trigger:root.querySelector('.amp-grp__visual'),start:'top 80%'}});
+      if(window.innerWidth>900){
+        root.querySelectorAll('[data-depth]').forEach(function(el){
+          var d=parseFloat(el.getAttribute('data-depth'))||.1;
+          gsap.to(el,{yPercent:-14*d*6,ease:'none',scrollTrigger:{trigger:root,start:'top bottom',end:'bottom top',scrub:.6}});
+        });
+      }
+    }catch(e){ root.classList.remove('amp-anim'); }
+  });
+})();
+</script>
+</section>
+
+<!-- ==================== BLOCK 6 · Mission-Vision ==================== -->
+<!-- ============================================================
+     SECTION 06 · MISSION & VISION (3D tilt cards)
+     ============================================================ -->
+<section id="amp-about-mv" class="amp-mv" style="background:#F4F7FA;">
+<style>
+#amp-about-mv{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#3d5a80; --navy:#3D5A80; --coral:#ed6e4e; --porcelain:#F4F7FA; --white:#fff;
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#F4F7FA !important;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#000000 !important;
+  padding:clamp(1.5rem,3vw,2.4rem) clamp(1.25rem,5vw,3rem);
+}
+#amp-about-mv, #amp-about-mv *{ box-sizing:border-box; }
+#amp-about-mv .amp-mv__grain{ position:absolute; inset:0; z-index:0; pointer-events:none; background-image:radial-gradient(rgba(61,90,128,.05) 1px,transparent 1px); background-size:26px 26px; -webkit-mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 70%); mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 70%); }
+
+#amp-about-mv .amp-mv__inner{ position:relative; z-index:2; max-width:1200px; margin:0 auto; }
+#amp-about-mv .amp-eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-size:.74rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:#ed6e4e; margin:0 0 1.1rem; }
+#amp-about-mv .amp-eyebrow i{ width:26px; height:1px; background:var(--coral); }
+#amp-about-mv .amp-mv__head{ max-width:640px; margin:0 0 clamp(2.4rem,5vw,3.6rem); }
+#amp-about-mv .amp-mv__title{ font-size:clamp(1.9rem,4vw,3rem); font-weight:700; letter-spacing:-.025em; line-height:1.08; margin:0; color:#000000 !important; }
+
+#amp-about-mv .amp-mv__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.2rem,2.4vw,1.8rem); }
+/* perspective wrapper keeps tilt smooth without clipping shadows */
+#amp-about-mv .amp-mv__stage{ perspective:1100px; }
+#amp-about-mv .amp-card{
+  position:relative; height:100%; background:var(--white); border-radius:22px;
+  padding:clamp(1.8rem,3vw,2.6rem); overflow:hidden;
+  box-shadow:0 1px 0 rgba(61,90,128,.05), 0 30px 60px -40px rgba(61,90,128,.4);
+  transform-style:preserve-3d; transition:box-shadow .5s, transform .5s cubic-bezier(.22,1,.36,1);
+  will-change:transform;
+}
+#amp-about-mv .amp-card:before{ content:""; position:absolute; inset:0; border-radius:22px; box-shadow:inset 0 0 0 1px rgba(61,90,128,.07); pointer-events:none; }
+/* coral corner accent that lifts in 3D */
+#amp-about-mv .amp-card__corner{ position:absolute; top:0; right:0; width:96px; height:96px; background:linear-gradient(135deg,transparent 50%,rgba(237,110,78,.14) 50%); pointer-events:none; }
+#amp-about-mv .amp-card__glow{ position:absolute; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle,rgba(237,110,78,.16),transparent 65%); left:var(--mx,50%); top:var(--my,50%); transform:translate(-50%,-50%); opacity:0; transition:opacity .4s; pointer-events:none; }
+#amp-about-mv .amp-card:hover .amp-card__glow{ opacity:1; }
+
+#amp-about-mv .amp-card__ico{ width:56px; height:56px; border-radius:15px; display:grid; place-items:center; background:rgba(61,90,128,.09); margin-bottom:1.5rem; transform:translateZ(38px); }
+#amp-about-mv .amp-card__ico svg{ width:28px; height:28px; stroke:var(--navy); fill:none; stroke-width:1.6; }
+#amp-about-mv .amp-card--vision .amp-card__ico{ background:rgba(237,110,78,.1); }
+#amp-about-mv .amp-card--vision .amp-card__ico svg{ stroke:var(--coral); }
+#amp-about-mv .amp-card__tag{ font-size:.66rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#000000; margin-bottom:.55rem; transform:translateZ(26px); }
+#amp-about-mv .amp-card__h{ font-size:clamp(1.25rem,2.2vw,1.6rem); font-weight:700; letter-spacing:-.01em; line-height:1.15; margin:0 0 .9rem; color:#000000 !important; transform:translateZ(30px); }
+#amp-about-mv .amp-card__p{ font-size:clamp(.98rem,1.3vw,1.08rem); font-weight:300; line-height:1.72; color:rgba(0,0,0,.72) !important; margin:0; transform:translateZ(18px); }
+#amp-about-mv .amp-card__no{ position:absolute; right:1.4rem; bottom:1rem; font-size:3.4rem; font-weight:800; line-height:1; color:rgba(0,0,0,.05); letter-spacing:-.03em; }
+
+/* core values graphic (placed below the Mission & Vision cards) */
+#amp-about-mv .amp-mv__values{ margin-top:clamp(1.6rem,3vw,2.4rem); position:relative; border-radius:24px; overflow:hidden; background:#fff; box-shadow:0 34px 74px -48px rgba(61,90,128,.42), inset 0 0 0 1px rgba(61,90,128,.06); padding:clamp(1.4rem,3vw,2.6rem); }
+#amp-about-mv .amp-mv__values:before{ content:""; position:absolute; right:0; top:0; width:130px; height:130px; background:linear-gradient(135deg,transparent 50%,rgba(237,110,78,.1) 50%); pointer-events:none; }
+#amp-about-mv .amp-mv__valimg{ position:relative; z-index:1; width:100%; height:auto; display:block; object-fit:contain; }
+
+#amp-about-mv.amp-anim .amp-mv__stage{ opacity:0; transform:translateY(26px); }
+#amp-about-mv.amp-anim .amp-mv__values{ opacity:0; transform:translateY(26px); }
+
+
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-mv [class*="__inner"], #amp-about-mv [class*="__inner"] > *,
+#amp-about-mv [class*="__grid"],  #amp-about-mv [class*="__grid"] > *,
+#amp-about-mv [class*="__list"],  #amp-about-mv [class*="__list"] > *,
+#amp-about-mv [class*="__wrap"],  #amp-about-mv [class*="__wrap"] > *{ min-width:0; }
+#amp-about-mv img, #amp-about-mv video{ max-width:100%; height:auto; }
+#amp-about-mv h1, #amp-about-mv h2, #amp-about-mv h3, #amp-about-mv p, #amp-about-mv li{ overflow-wrap:break-word; }
+
+@media (max-width:820px){
+  #amp-about-mv .amp-mv__grid{ grid-template-columns:1fr; }
+  #amp-about-mv .amp-card{ transform:none !important; } /* disable tilt on touch */
+}
+/* --- mobile legibility & tap targets --- */
+@media (max-width:900px){
+  #amp-about-mv .amp-card__tag{ font-size:.74rem; }
+  /* 1920px values infographic would render ~290px wide on a phone — let it scroll at a legible size */
+  #amp-about-mv .amp-mv__values{ overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; }
+  #amp-about-mv .amp-mv__valimg{ min-width:640px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #amp-about-mv.amp-anim .amp-mv__stage,#amp-about-mv.amp-anim .amp-mv__values{ opacity:1; transform:none; }
+}
+</style>
+
+<div class="amp-mv__grain" aria-hidden="true"></div>
+<div class="amp-mv__inner">
+  <div class="amp-mv__head amp-fade">
+    <span class="amp-eyebrow">Mission &amp; Vision</span>
+    <h2 class="amp-mv__title">What drives us forward</h2>
+  </div>
+
+  <div class="amp-mv__grid">
+    <!-- Mission -->
+    <div class="amp-mv__stage">
+      <article class="amp-card amp-card--mission" data-tilt>
+        <span class="amp-card__corner" aria-hidden="true"></span>
+        <span class="amp-card__glow" aria-hidden="true"></span>
+        <div class="amp-card__ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".6" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <p class="amp-card__tag">Our Mission</p>
+        <h3 class="amp-card__h">Enabling partners to succeed</h3>
+        <p class="amp-card__p">Supply the latest technology solutions to a dynamic marketplace and enable our ecosystem partners to succeed in their business, committing ourselves to deliver the highest standards by pursuing excellence every day.</p>
+        <span class="amp-card__no" aria-hidden="true">01</span>
+      </article>
+    </div>
+    <!-- Vision -->
+    <div class="amp-mv__stage">
+      <article class="amp-card amp-card--vision" data-tilt>
+        <span class="amp-card__corner" aria-hidden="true"></span>
+        <span class="amp-card__glow" aria-hidden="true"></span>
+        <div class="amp-card__ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <p class="amp-card__tag">Our Vision</p>
+        <h3 class="amp-card__h">Leading regional distribution</h3>
+        <p class="amp-card__p">To lead the marketplace in supply chain services and through distribution of IT, networking, telecommunication, systems and solutions.</p>
+        <span class="amp-card__no" aria-hidden="true">02</span>
+      </article>
+    </div>
+  </div>
+
+  <!-- Official "our values" culture graphic from ampconnectme.com -->
+  <div class="amp-mv__values amp-fade">
+    <img class="amp-mv__valimg" src="assets/about-us/about-our-values.webp" alt="AMPCONNECT core values: Think Customer First, Give &amp; Earn Respect, Work Together, Take Ownership, Innovate with Simplicity" loading="lazy">
+  </div>
+</div>
+
+<script>
+(function(){
+  
+
+  if(window.__ampAboutMvInit) return; window.__ampAboutMvInit = true;
+  var root = document.getElementById('amp-about-mv'); if(!root) return;
+  if(!window.ampMotionOK()) return;
+  root.classList.add('amp-anim');
+
+  /* --- pointer-based 3D tilt (plain JS, desktop pointers only) --- */
+  var fine = window.matchMedia && window.matchMedia('(pointer:fine)').matches;
+  if(fine){
+    root.querySelectorAll('[data-tilt]').forEach(function(card){
+      var raf=null, tx=0, ty=0;
+      function apply(){ card.style.transform='rotateX('+ty+'deg) rotateY('+tx+'deg) translateY(-4px)'; raf=null; }
+      card.addEventListener('mousemove', function(e){
+        var r=card.getBoundingClientRect();
+        var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+        tx=(px-0.5)*10; ty=-(py-0.5)*10;              /* max ~5deg each axis */
+        card.style.setProperty('--mx', (px*100)+'%');
+        card.style.setProperty('--my', (py*100)+'%');
+        if(!raf) raf=requestAnimationFrame(apply);
+      });
+      card.addEventListener('mouseleave', function(){
+        if(raf){cancelAnimationFrame(raf); raf=null;}
+        card.style.transform='';
+      });
+    });
+  }
+
+  window.ampGSAPReady(function(gsap, ST){
+    if(!gsap || !ST){ root.classList.remove('amp-anim'); return; }
+    try{
+      gsap.utils.toArray(root.querySelectorAll('.amp-fade')).forEach(function(el){
+        gsap.to(el,{opacity:1,y:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+      });
+      gsap.utils.toArray(root.querySelectorAll('.amp-mv__stage')).forEach(function(el,i){
+        gsap.to(el,{opacity:1,y:0,duration:.85,ease:'power3.out',delay:i*.12,scrollTrigger:{trigger:root.querySelector('.amp-mv__grid'),start:'top 80%'}});
+      });
+    }catch(e){ root.classList.remove('amp-anim'); }
+  });
+})();
+</script>
+</section>
+
+<!-- ==================== BLOCK 7 · Our-values ==================== -->
+<!-- ============================================================
+     SECTION 07 · VALUES (2x2 numbered grid)
+     ============================================================ -->
+<section id="amp-about-values" class="amp-val" style="background:#F4F7FA;">
+<style>
+#amp-about-values{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#3d5a80; --navy:#3D5A80; --coral:#ed6e4e; --porcelain:#F4F7FA; --white:#fff;
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#F4F7FA !important;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#000000 !important;
+padding:clamp(5rem,10vw,8rem) clamp(1.25rem,5vw,3rem);
+padding-top:clamp(1.5rem,3vw,2.4rem);
+}
+#amp-about-values, #amp-about-values *{ box-sizing:border-box; }
+#amp-about-values .amp-val__inner{ position:relative; z-index:2; max-width:1200px; margin:0 auto; }
+#amp-about-values .amp-eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-size:.74rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:#ed6e4e; margin:0 0 1.1rem; }
+#amp-about-values .amp-eyebrow i{ width:26px; height:1px; background:var(--coral); }
+#amp-about-values .amp-val__head{ max-width:640px; margin:0 0 clamp(2.4rem,5vw,3.2rem); }
+#amp-about-values .amp-val__title{ font-size:clamp(1.9rem,4vw,3rem); font-weight:700; letter-spacing:-.025em; line-height:1.08; margin:0; color:#000000 !important; }
+
+/* 2x2 value grid */
+#amp-about-values .amp-val__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1rem,2vw,1.4rem); margin-bottom:clamp(2.4rem,5vw,3.6rem); }
+#amp-about-values .amp-val__cell{
+  position:relative; background:#fff; border-radius:20px; padding:clamp(1.6rem,2.8vw,2.4rem); overflow:hidden;
+  box-shadow:0 1px 0 rgba(61,90,128,.05), 0 26px 54px -44px rgba(61,90,128,.4);
+  transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s;
+}
+#amp-about-values .amp-val__cell:before{ content:""; position:absolute; inset:0; border-radius:20px; box-shadow:inset 0 0 0 1px rgba(61,90,128,.07); pointer-events:none; }
+#amp-about-values .amp-val__cell:after{ content:""; position:absolute; left:0; top:0; width:0; height:3px; background:var(--coral); transition:width .5s cubic-bezier(.22,1,.36,1); }
+#amp-about-values .amp-val__cell:hover{ transform:translateY(-5px); box-shadow:0 1px 0 rgba(61,90,128,.05), 0 40px 70px -40px rgba(61,90,128,.5); }
+#amp-about-values .amp-val__cell:hover:after{ width:100%; }
+#amp-about-values .amp-val__cell:hover .amp-val__num{ transform:translateY(-6px); opacity:.09; }
+#amp-about-values .amp-val__no{ color:var(--coral); margin-bottom:1.5rem; display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:13px; background:rgba(237,110,78,.1); transition:background .35s, color .35s, transform .35s; }
+#amp-about-values .amp-val__no svg{ width:24px; height:24px; }
+#amp-about-values .amp-val__cell:hover .amp-val__no{ background:var(--coral); color:#fff; transform:translateY(-2px); }
+#amp-about-values .amp-val__h{ font-size:clamp(1.15rem,1.9vw,1.45rem); font-weight:700; letter-spacing:-.01em; line-height:1.18; margin:0 0 .7rem; color:#000000 !important; position:relative; z-index:2; }
+#amp-about-values .amp-val__p{ font-size:clamp(.95rem,1.25vw,1.02rem); font-weight:300; line-height:1.65; color:rgba(0,0,0,.7) !important; margin:0; max-width:42ch; position:relative; z-index:2; }
+#amp-about-values .amp-val__num{ position:absolute; right:-.2rem; bottom:-1.4rem; font-size:clamp(4.5rem,8vw,7rem); font-weight:800; line-height:1; color:rgba(0,0,0,.045); letter-spacing:-.04em; transition:transform .5s, opacity .5s; pointer-events:none; z-index:0; }
+
+/* full-width culture banner (official our_values graphic from ampconnectme.com) */
+#amp-about-values .amp-val__banner{ position:relative; border-radius:24px; overflow:hidden; background:#fff; box-shadow:0 34px 74px -48px rgba(61,90,128,.42), inset 0 0 0 1px rgba(61,90,128,.06); padding:clamp(1.4rem,3vw,2.6rem); }
+#amp-about-values .amp-val__banner:before{ content:""; position:absolute; right:0; top:0; width:130px; height:130px; background:linear-gradient(135deg,transparent 50%,rgba(237,110,78,.1) 50%); pointer-events:none; }
+#amp-about-values .amp-val__img{ position:relative; z-index:1; width:100%; height:auto; display:block; object-fit:contain; }
+
+#amp-about-values.amp-anim .amp-fade{ opacity:0; transform:translateY(22px); }
+#amp-about-values.amp-anim .amp-val__cell{ opacity:0; transform:translateY(26px); }
+#amp-about-values.amp-anim .amp-val__banner{ opacity:0; transform:translateY(26px); }
+
+
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-values [class*="__inner"], #amp-about-values [class*="__inner"] > *,
+#amp-about-values [class*="__grid"],  #amp-about-values [class*="__grid"] > *,
+#amp-about-values [class*="__list"],  #amp-about-values [class*="__list"] > *,
+#amp-about-values [class*="__wrap"],  #amp-about-values [class*="__wrap"] > *{ min-width:0; }
+#amp-about-values img, #amp-about-values video{ max-width:100%; height:auto; }
+#amp-about-values h1, #amp-about-values h2, #amp-about-values h3, #amp-about-values p, #amp-about-values li{ overflow-wrap:break-word; }
+
+@media (max-width:760px){
+  #amp-about-values .amp-val__grid{ grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce){
+  #amp-about-values.amp-anim .amp-fade,#amp-about-values.amp-anim .amp-val__cell,#amp-about-values.amp-anim .amp-val__banner{ opacity:1; transform:none; }
+}
+</style>
+
+<div class="amp-val__inner">
+  <div class="amp-val__head amp-fade">
+    <span class="amp-eyebrow">Our Values</span>
+    <h2 class="amp-val__title">The principles behind every partnership</h2>
+  </div>
+
+  <div class="amp-val__grid">
+    <div class="amp-val__cell">
+      <span class="amp-val__no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></span>
+      <h3 class="amp-val__h">Partner Empowerment</h3>
+      <p class="amp-val__p">We empower our partners to achieve greater outcomes with technology.</p>
+      <span class="amp-val__num" aria-hidden="true">01</span>
+    </div>
+    <div class="amp-val__cell">
+      <span class="amp-val__no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <h3 class="amp-val__h">Diversity &amp; Expertise</h3>
+      <p class="amp-val__p">Diverse backgrounds and experiences let us learn, evolve and win together.</p>
+      <span class="amp-val__num" aria-hidden="true">02</span>
+    </div>
+    <div class="amp-val__cell">
+      <span class="amp-val__no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5C17.7 10.2 18 9 18 7.5a6 6 0 1 0-12 0c0 1.5.5 2.7 1.5 4 .8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span>
+      <h3 class="amp-val__h">Innovation</h3>
+      <p class="amp-val__p">An innovative distributor maximizing the value of IT and digital transformation.</p>
+      <span class="amp-val__num" aria-hidden="true">03</span>
+    </div>
+    <div class="amp-val__cell">
+      <span class="amp-val__no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2Z"/></svg></span>
+      <h3 class="amp-val__h">Excellence</h3>
+      <p class="amp-val__p">Pursuing the highest standards of excellence in everything we deliver.</p>
+      <span class="amp-val__num" aria-hidden="true">04</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  
+
+  if(window.__ampAboutValuesInit) return; window.__ampAboutValuesInit = true;
+  var root = document.getElementById('amp-about-values'); if(!root) return;
+  if(!window.ampMotionOK()) return;
+  root.classList.add('amp-anim');
+
+  window.ampGSAPReady(function(gsap, ST){
+    if(!gsap || !ST){ root.classList.remove('amp-anim'); return; }
+    try{
+      gsap.utils.toArray(root.querySelectorAll('.amp-fade')).forEach(function(el){
+        gsap.to(el,{opacity:1,y:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%'}});
+      });
+      gsap.to(root.querySelectorAll('.amp-val__cell'),{opacity:1,y:0,duration:.7,ease:'power3.out',stagger:.1,
+        scrollTrigger:{trigger:root.querySelector('.amp-val__grid'),start:'top 84%'}});
+    }catch(e){ root.classList.remove('amp-anim'); }
+  });
+})();
+</script>
+</section>
+
+<!-- ==================== BLOCK 9 · Closing CTA ==================== -->
+<!-- ============================================================
+     SECTION 09 · CLOSING CTA BAND
+     ============================================================ -->
+<section id="amp-about-cta" class="amp-end" style="background:#3d5a80;">
+<style>
+#amp-about-cta{
+  /* Elementor/theme safety: the widget parent is often display:flex, where a flex item
+     defaults to min-width:auto and refuses to shrink — that is what clipped this block. */
+  box-sizing:border-box; width:100%; max-width:100%; min-width:0;
+  --ink:#3d5a80; --navy:#3D5A80; --coral:#ed6e4e; --white:#fff;
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#3d5a80 !important;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#fff !important;
+  padding:clamp(5rem,10vw,8rem) clamp(1.25rem,5vw,3rem);
+  padding-top:clamp(1.5rem,3vw,2.4rem);
+  text-align:center;
+}
+#amp-about-cta, #amp-about-cta *{ box-sizing:border-box; }
+#amp-about-cta .amp-end__mesh{ position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(50% 55% at 50% 0%, rgba(237,110,78,.24), transparent 60%),
+    radial-gradient(40% 50% at 15% 100%, rgba(61,90,128,.5), transparent 65%),
+    radial-gradient(40% 50% at 85% 90%, rgba(61,90,128,.36), transparent 65%);
+}
+#amp-about-cta .amp-end__grid{ position:absolute; inset:0; z-index:0; pointer-events:none; background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px); background-size:32px 32px; -webkit-mask-image:radial-gradient(80% 80% at 50% 50%,#000,transparent 72%); mask-image:radial-gradient(80% 80% at 50% 50%,#000,transparent 72%); }
+/* floating parallax node shapes */
+#amp-about-cta .amp-end__shape{ position:absolute; z-index:0; border-radius:50%; pointer-events:none; }
+#amp-about-cta .amp-end__shape svg{ display:block; overflow:visible; }
+#amp-about-cta .amp-end__s1{ left:8%; top:24%; }
+#amp-about-cta .amp-end__s2{ right:9%; top:30%; }
+#amp-about-cta .amp-end__s3{ left:16%; bottom:16%; }
+
+#amp-about-cta .amp-end__inner{ position:relative; z-index:2; max-width:820px; margin:0 auto; }
+#amp-about-cta .amp-eyebrow{ display:inline-flex; align-items:center; gap:.6rem; font-size:.74rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.7); margin:0 0 1.5rem; justify-content:center; }
+#amp-about-cta .amp-eyebrow i{ width:26px; height:1px; background:var(--coral); }
+#amp-about-cta .amp-end__title{ font-size:clamp(2.1rem,5.2vw,3.6rem); font-weight:700; letter-spacing:-.03em; line-height:1.06; margin:0 0 1.4rem; color:#fff !important; }
+#amp-about-cta .amp-end__title em{ color:var(--coral); font-style:normal; }
+#amp-about-cta .amp-end__p{ font-size:clamp(1.02rem,1.5vw,1.2rem); font-weight:300; line-height:1.65; color:rgba(255,255,255,.76) !important; margin:0 auto 2.6rem; max-width:52ch; }
+
+#amp-about-cta .amp-end__actions{ display:flex; flex-wrap:wrap; gap:.9rem; justify-content:center; }
+#amp-about-cta .amp-btn{
+  --_bg:var(--coral); --_fg:var(--ink);
+  display:inline-flex; align-items:center; gap:.55em;
+  font:600 1rem/1 'Poppins',sans-serif; letter-spacing:.01em; text-decoration:none;
+  padding:1.1em 1.9em; border-radius:100px; position:relative; overflow:hidden; cursor:pointer;
+  transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s, background-color .4s, color .4s;
+}
+#amp-about-cta .amp-btn svg{ transition:transform .4s cubic-bezier(.22,1,.36,1); }
+#amp-about-cta .amp-btn--primary{ background:var(--_bg); color:var(--_fg); box-shadow:0 14px 30px -12px rgba(237,110,78,.7); }
+#amp-about-cta .amp-btn--primary:hover{ transform:translateY(-3px); box-shadow:0 22px 44px -14px rgba(237,110,78,.82); }
+#amp-about-cta .amp-btn--primary:hover svg{ transform:translateX(5px); }
+#amp-about-cta .amp-btn--ghost{ color:#fff; background:transparent; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28); }
+#amp-about-cta .amp-btn--ghost:hover{ transform:translateY(-3px); box-shadow:inset 0 0 0 1px rgba(255,255,255,.65); background:rgba(255,255,255,.05); }
+
+#amp-about-cta.amp-anim .amp-rise{ opacity:0; transform:translateY(24px); }
+
+
+/* --- containment: nothing may exceed the section box on any device --- */
+#amp-about-cta [class*="__inner"], #amp-about-cta [class*="__inner"] > *,
+#amp-about-cta [class*="__grid"],  #amp-about-cta [class*="__grid"] > *,
+#amp-about-cta [class*="__list"],  #amp-about-cta [class*="__list"] > *,
+#amp-about-cta [class*="__wrap"],  #amp-about-cta [class*="__wrap"] > *{ min-width:0; }
+#amp-about-cta img, #amp-about-cta video{ max-width:100%; height:auto; }
+#amp-about-cta h1, #amp-about-cta h2, #amp-about-cta h3, #amp-about-cta p, #amp-about-cta li{ overflow-wrap:break-word; }
+
+@media (max-width:600px){
+  #amp-about-cta .amp-end__shape{ display:none; }
+  #amp-about-cta .amp-btn{ width:100%; justify-content:center; }
+}
+@media (prefers-reduced-motion:reduce){
+  #amp-about-cta.amp-anim .amp-rise{ opacity:1; transform:none; }
+}
+</style>
+
+<div class="amp-end__mesh" aria-hidden="true"></div>
+<div class="amp-end__grid" aria-hidden="true"></div>
+<div class="amp-end__shape amp-end__s1" data-depth=".5" aria-hidden="true"><svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="6" fill="#ed6e4e"/><circle cx="35" cy="35" r="20" fill="none" stroke="rgba(237,110,78,.35)"/><circle cx="35" cy="35" r="32" fill="none" stroke="rgba(237,110,78,.16)" stroke-dasharray="3 5"/></svg></div>
+<div class="amp-end__shape amp-end__s2" data-depth=".8" aria-hidden="true"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="4" fill="rgba(255,255,255,.6)"/><circle cx="23" cy="23" r="14" fill="none" stroke="rgba(255,255,255,.2)"/></svg></div>
+<div class="amp-end__shape amp-end__s3" data-depth=".35" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="3.5" fill="rgba(61,90,128,.9)"/><circle cx="15" cy="15" r="11" fill="none" stroke="rgba(255,255,255,.14)"/></svg></div>
+
+<div class="amp-end__inner">
+  <span class="amp-eyebrow amp-rise">Let's talk</span>
+  <h2 class="amp-end__title amp-rise">Let's build the future of <em>distribution</em> together</h2>
+  <p class="amp-end__p amp-rise">Whether you're a brand looking for regional reach or a reseller seeking the right technology partner, we'd love to talk.</p>
+  <div class="amp-end__actions amp-rise">
+    <a class="amp-btn amp-btn--primary" href="contact-us.html">Partner with us
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="amp-btn amp-btn--ghost" href="solutions.html">View our solutions</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  
+
+  if(window.__ampAboutCtaInit) return; window.__ampAboutCtaInit = true;
+  var root = document.getElementById('amp-about-cta'); if(!root) return;
+  if(!window.ampMotionOK()) return;
+  root.classList.add('amp-anim');
+
+  window.ampGSAPReady(function(gsap, ST){
+    if(!gsap || !ST){ root.classList.remove('amp-anim'); return; }
+    try{
+      gsap.to(root.querySelectorAll('.amp-rise'),{opacity:1,y:0,duration:.85,ease:'power3.out',stagger:.12,
+        scrollTrigger:{trigger:root.querySelector('.amp-end__inner'),start:'top 82%'}});
+      if(window.innerWidth>700){
+        root.querySelectorAll('[data-depth]').forEach(function(el){
+          var d=parseFloat(el.getAttribute('data-depth'))||.4;
+          gsap.to(el,{yPercent:-20*d,ease:'none',scrollTrigger:{trigger:root,start:'top bottom',end:'bottom top',scrub:.6}});
+        });
+      }
+    }catch(e){ root.classList.remove('amp-anim'); }
+  });
+})();
+</script>
+</section>
+
+<!-- AMPCONNECT · Homepage · Section 10 · Payment notice (alert, sits right above the footer) — paste into one Elementor HTML widget (full width, padding 0) -->
+<section id="amp-notice" aria-labelledby="amp-notice-title" style="background:#f3f6fb">
+<style>
+/* Elementor flex-safety: the widget parent is often display:flex */
+#amp-notice{box-sizing:border-box;width:100%;max-width:100%;min-width:0;font-family:'Poppins',system-ui,sans-serif !important;background:#f3f6fb !important;margin:0;padding:clamp(36px,4.5vw,56px) 20px}
+#amp-notice *,#amp-notice *::before,#amp-notice *::after{box-sizing:border-box;margin:0;padding:0}
+#amp-notice .an-card{max-width:1240px;margin:0 auto;background:#fff;border-radius:20px;border-left:5px solid #ED6E4E;box-shadow:0 8px 30px rgba(27,42,59,.07);padding:clamp(22px,2.6vw,32px) clamp(20px,3vw,40px)}
+#amp-notice .an-head{display:flex;align-items:center;gap:14px;margin-bottom:clamp(16px,2vw,22px)}
+#amp-notice .an-icon{flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:rgba(237,110,78,.12);color:#ED6E4E;display:flex;align-items:center;justify-content:center}
+#amp-notice .an-icon svg{width:22px;height:22px}
+#amp-notice h2{font-family:'Poppins',system-ui,sans-serif !important;font-size:clamp(1.25rem,2vw,1.6rem);font-weight:700;line-height:1.25;letter-spacing:-.01em;color:#1b2a3b;overflow-wrap:break-word}
+#amp-notice ol{list-style:none;counter-reset:an;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}
+#amp-notice li{counter-increment:an;position:relative;background:#fbfcfe;border:1px solid #e6ecf3;border-radius:12px;padding:14px 18px 14px 54px;font-size:.92rem;line-height:1.6;color:#3a4a5c;overflow-wrap:break-word}
+#amp-notice li::before{content:counter(an);position:absolute;left:16px;top:15px;width:26px;height:26px;border-radius:50%;background:#ED6E4E;color:#fff;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+#amp-notice a{color:#3D5A80;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+#amp-notice a:hover,#amp-notice a:focus-visible{color:#ED6E4E}
+@media (max-width:860px){
+  #amp-notice ol{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  #amp-notice{padding:32px 14px}
+  #amp-notice .an-head{align-items:flex-start}
+  #amp-notice li{padding:12px 14px 12px 48px}
+  #amp-notice li::before{left:12px;top:13px}
+}
+</style>
+<div class="an-card" role="note">
+  <div class="an-head">
+    <div class="an-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div>
+    <h2 id="amp-notice-title">Important Notice to Customers – Authorized Payment Channels</h2>
+  </div>
+  <ol>
+    <li>For your protection, all payments to Ampconnect must be made only to the company's designated bank accounts or through officially authorized company cash collection channels.</li>
+    <li>The company does not authorize employees or sales representatives to collect or receive customer payments in their personal capacity.</li>
+    <li>Customers are requested not to make payments to individual employees or personal bank accounts. An official company receipt must be obtained for every payment made.</li>
+    <li>If you receive any request for payment outside these authorized channels, please contact our Finance Department on <a href="mailto:accounts@ampconnectme.com">accounts@ampconnectme.com</a> before proceeding with the payment.</li>
+  </ol>
+</div>
+<script>
+(function(){if(document.getElementById('amp-fonts-poppins-i'))return;var l=document.createElement('link');l.id='amp-fonts-poppins-i';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap';document.head.appendChild(l);})();
+</script>
+</section>
+
+
+
+<!-- ============================================================
+     AMPCONNECT · SITE FOOTER
+     ------------------------------------------------------------
+     Palette:  bg #fc6439 (plain)  ·  boxes/accents #2c4c76  ·  text + icon boxes off-white #F7F5F2
+     Self-contained Elementor block:
+       - background and typography scoped to the footer component
+       - namespaced CSS under #amp-footer
+       - lightweight JavaScript with no third-party dependencies
+     Elementor-ready: paste this entire fragment into one HTML widget.
+     ============================================================ -->
+<style>
+#amp-footer{
+  --brand:#ed6e4e;         /* brand orange — icon paths                  */
+  --blue-glass:rgba(44,76,118,.92);   /* transparent blue — office boxes */
+  --paper:#F7F5F2;         /* off-white: text, lines, icon boxes         */
+  --paper-70:rgba(247,245,242,.72);
+  --paper-glass:rgba(247,245,242,.16); /* transparent off-white — icons  */
+  --paper-line:rgba(247,245,242,.4);
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#fc6439 !important;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
+  color:#F7F5F2 !important;
+  padding:0 clamp(1.25rem,5vw,3rem) 0;
+}
+#amp-footer *{ box-sizing:border-box; }
+#amp-footer a{ text-decoration:none; }
+#amp-footer a:focus-visible{ outline:3px solid rgba(247,245,242,.72); outline-offset:4px; border-radius:4px; }
+
+/* navy hairline across the very top edge */
+#amp-footer .amp-f__edge{ position:absolute; top:0; left:0; right:0; height:1px; z-index:3; pointer-events:none; background:var(--paper-line); }
+
+#amp-footer .amp-f__inner{ position:relative; z-index:2; max-width:1200px; margin:0 auto; }
+
+/* shared eyebrow */
+#amp-footer .amp-f__eyebrow{ display:inline-flex; align-items:center; font-size:.68rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--paper) !important; margin:0 0 1.5rem; }
+
+/* ============ 1 · OFFICES ROW (horizontal, solid navy boxes) ============ */
+#amp-footer .amp-f__offices{ padding:clamp(3.4rem,6vw,4.6rem) 0 clamp(2.6rem,4.5vw,3.4rem); }
+#amp-footer .amp-f__orow{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(.9rem,1.8vw,1.4rem); }
+#amp-footer .amp-office{
+  position:relative; border-radius:18px; padding:clamp(1.4rem,2.4vw,1.9rem); overflow:hidden;
+  background:var(--blue-glass);
+  box-shadow:inset 0 0 0 1px rgba(247,245,242,.28);
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+/* off-white rule shown by default across the top of each box */
+#amp-footer .amp-office:before{ content:""; position:absolute; left:0; top:0; height:2px; width:100%; background:var(--paper); }
+#amp-footer .amp-office:hover{ transform:translateY(-6px); }
+#amp-footer .amp-office__top{ display:flex; align-items:center; gap:.8rem; margin-bottom:1.1rem; }
+/* icon box stays off-white */
+#amp-footer .amp-office__pin{ flex:none; width:38px; height:38px; border-radius:11px; display:grid; place-items:center; background:var(--paper); }
+#amp-footer .amp-office__pin svg{ width:18px; height:18px; stroke:var(--brand); fill:none; stroke-width:1.8; }
+#amp-footer .amp-office__city{ font-size:1.02rem; font-weight:700; letter-spacing:-.01em; color:var(--paper) !important; margin:0; line-height:1.2; }
+#amp-footer .amp-office__flag{ font-size:.6rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--paper-70) !important; margin:.2rem 0 0; }
+#amp-footer .amp-office__addr{ font-size:.86rem; font-weight:300; line-height:1.7; color:var(--paper-70) !important; margin:0; }
+#amp-footer .amp-office__no{ position:absolute; right:1.1rem; bottom:.6rem; font-size:2.6rem; font-weight:800; line-height:1; color:rgba(247,245,242,.1); letter-spacing:-.03em; pointer-events:none; }
+
+/* ============ 2 · MAIN GRID — brand + link columns ============ */
+#amp-footer .amp-f__main{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1fr; gap:clamp(1.6rem,3.2vw,2.8rem); padding:clamp(2.4rem,4.5vw,3.4rem) 0; }
+
+/* brand column */
+#amp-footer .amp-f__logoimg{ display:block; width:190px; max-width:100%; height:auto; margin-bottom:1.5rem; }
+#amp-footer .amp-f__blurb{ font-size:.88rem; font-weight:400; line-height:1.75; color:var(--paper) !important; margin:0 0 1.4rem; max-width:34ch; }
+#amp-footer .amp-f__blurb b{ font-weight:700; }
+#amp-footer .amp-f__est{ display:inline-flex; align-items:center; font-size:.78rem; font-weight:600; color:var(--paper) !important; margin-bottom:1.5rem; }
+
+/* social — icon box off-white */
+#amp-footer .amp-f__social{ display:flex; gap:.6rem; }
+#amp-footer .amp-social{
+  position:relative; width:42px; height:42px; border-radius:12px; display:grid; place-items:center; overflow:hidden;
+  background:var(--paper-glass);
+  box-shadow:inset 0 0 0 1px rgba(247,245,242,.4);
+  transition:transform .4s cubic-bezier(.22,1,.36,1), background-color .4s, box-shadow .4s;
+}
+#amp-footer .amp-social svg{ position:relative; z-index:2; width:18px; height:18px; fill:var(--paper); transition:fill .35s; }
+#amp-footer .amp-social:hover{ transform:translateY(-4px); background:var(--paper); box-shadow:inset 0 0 0 1px var(--paper); }
+/* on hover each icon shows its own official brand colour */
+#amp-footer .amp-social:hover svg{ fill:var(--brandc,var(--brand)); }
+#amp-footer .amp-social--li{ --brandc:#0A66C2; }  /* LinkedIn blue  */
+#amp-footer .amp-social--wa{ --brandc:#25D366; }  /* WhatsApp green */
+
+/* link columns */
+#amp-footer .amp-f__coltitle{ font-size:.72rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--paper) !important; margin:0 0 1.3rem; position:relative; padding-bottom:.8rem; }
+#amp-footer .amp-f__coltitle:after{ content:""; position:absolute; left:0; bottom:0; width:22px; height:2px; background:var(--paper); border-radius:2px; }
+#amp-footer .amp-f__list{ list-style:none; margin:0; padding:0; display:grid; gap:.62rem; }
+#amp-footer .amp-f__list a{
+  position:relative; display:inline-flex; align-items:center; gap:.4rem;
+  font-size:.86rem; font-weight:400; line-height:1.4; color:var(--paper) !important;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+#amp-footer .amp-f__list a:before{ content:""; width:0; height:2px; background:var(--paper); transition:width .35s cubic-bezier(.22,1,.36,1); }
+#amp-footer .amp-f__list a:hover{ transform:translateX(3px); }
+#amp-footer .amp-f__list a:hover:before{ width:10px; }
+
+/* ============ 3 · CONTACT COLUMN (vertical, sits next to Vendors) ============ */
+#amp-footer .amp-f__clist{ list-style:none; margin:0; padding:0; display:grid; gap:1.15rem; }
+#amp-footer .amp-cc{ display:flex; flex-direction:column; gap:.28rem; }
+#amp-footer .amp-cc__k{ display:inline-flex; align-items:center; gap:.45rem; font-size:.6rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--paper-70) !important; }
+#amp-footer .amp-cc__k svg{ width:13px; height:13px; stroke:var(--paper-70); fill:none; stroke-width:1.9; }
+#amp-footer .amp-cc__v{ position:relative; display:inline-block; font-size:.9rem; font-weight:600; color:var(--paper) !important; line-height:1.35; word-break:break-word; transition:opacity .3s; }
+#amp-footer .amp-cc__v:after{ content:""; position:absolute; left:0; bottom:-2px; height:1.5px; width:0; background:var(--paper); transition:width .4s cubic-bezier(.22,1,.36,1); }
+#amp-footer a.amp-cc__v:hover{ opacity:.85; }
+#amp-footer a.amp-cc__v:hover:after{ width:100%; }
+
+/* ============ 4 · BOTTOM BAR ============ */
+#amp-footer .amp-f__bottom{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; padding:clamp(1.3rem,2.5vw,1.7rem) 0 clamp(1.6rem,3vw,2.2rem); border-top:1px solid var(--paper-line); margin-top:.4rem; }
+#amp-footer .amp-f__copy{ font-size:.78rem; font-weight:400; color:var(--paper) !important; margin:0; }
+#amp-footer .amp-f__legal{ display:flex; flex-wrap:wrap; align-items:center; gap:1.3rem; }
+#amp-footer .amp-f__legal a{ font-size:.78rem; font-weight:400; color:var(--paper) !important; transition:opacity .3s; }
+#amp-footer .amp-f__legal a:hover{ opacity:.75; }
+
+/* ---- reveal states: added by JS only when motion is allowed ---- */
+#amp-footer.amp-anim .amp-office{ opacity:0; transform:translateY(22px); transition-property:opacity,transform; }
+#amp-footer.amp-anim .amp-f__rev{ opacity:0; transform:translateY(18px); transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1); }
+#amp-footer.amp-anim .amp-office.amp-seen,#amp-footer.amp-anim .amp-f__rev.amp-seen{ opacity:1; transform:none; }
+#amp-footer.amp-anim .amp-office.amp-seen:hover{ transform:translateY(-6px); }
+
+@media (max-width:1080px){
+  #amp-footer .amp-f__main{ grid-template-columns:1fr 1fr 1fr; row-gap:2.6rem; }
+}
+@media (max-width:860px){
+  #amp-footer .amp-f__orow{ grid-template-columns:1fr; }
+  #amp-footer .amp-f__main{ grid-template-columns:1fr 1fr; row-gap:2.4rem; }
+}
+@media (max-width:560px){
+  #amp-footer .amp-f__main{ grid-template-columns:1fr; }
+  #amp-footer .amp-f__bottom{ flex-direction:column; align-items:flex-start; }
+}
+@media (prefers-reduced-motion:reduce){
+  #amp-footer.amp-anim .amp-office,#amp-footer.amp-anim .amp-f__rev{ opacity:1; transform:none; }
+}
+</style>
+
+<footer id="amp-footer">
+
+<div class="amp-f__edge" aria-hidden="true"></div>
+
+<div class="amp-f__inner">
+
+  <!-- ============ 1 · OFFICES (horizontal row) ============ -->
+  <div class="amp-f__offices">
+    <span class="amp-f__eyebrow amp-f__rev">Our offices</span>
+    <div class="amp-f__orow">
+      <div class="amp-office">
+        <div class="amp-office__top">
+          <span class="amp-office__pin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <div>
+            <h3 class="amp-office__city">JAFZA Office</h3>
+            <p class="amp-office__flag">United Arab Emirates</p>
+          </div>
+        </div>
+        <p class="amp-office__addr">Plot No: MO0321A,<br>P.O Box: 17719, Jebel Ali Free Zone,<br>Dubai, United Arab Emirates</p>
+        <span class="amp-office__no" aria-hidden="true">01</span>
+      </div>
+
+      <div class="amp-office">
+        <div class="amp-office__top">
+          <span class="amp-office__pin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <div>
+            <h3 class="amp-office__city">Dubai Office</h3>
+            <p class="amp-office__flag">United Arab Emirates</p>
+          </div>
+        </div>
+        <p class="amp-office__addr">607, 6th Floor, Al Fattan Plaza,<br>Airport Road, Garhoud,<br>Dubai, United Arab Emirates</p>
+        <span class="amp-office__no" aria-hidden="true">02</span>
+      </div>
+
+      <div class="amp-office">
+        <div class="amp-office__top">
+          <span class="amp-office__pin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <div>
+            <h3 class="amp-office__city">Oman Office</h3>
+            <p class="amp-office__flag">Sultanate of Oman</p>
+          </div>
+        </div>
+        <p class="amp-office__addr">AMPCONNECT Computer Trading LLC,<br>Al Amal Medical Building, Building No.49,<br>Office 77, P.O Box 3915, PC:112,<br>North Al Khuwair, Sultanate of Oman</p>
+        <span class="amp-office__no" aria-hidden="true">03</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2 · BRAND + LINK COLUMNS ============ -->
+  <div class="amp-f__main">
+
+    <!-- brand -->
+    <div class="amp-f__rev">
+      <!-- ===== LOGO: replace the src below with your own file =====
+           Currently pointing at the live WHITE logo (works on this orange background). -->
+      <img class="amp-f__logoimg"
+           src="https://ampconnectme.com/wp-content/uploads/2025/04/logo-white-1024x206.png"
+           alt="AMPCONNECT" width="1024" height="206">
+
+      <p class="amp-f__blurb"><b>AMPCONNECT</b> is an ISO-certified value-added IT distributor delivering infrastructure, connectivity, power, data protection and networking technologies across the UAE, GCC and Africa.</p>
+
+      <div class="amp-f__est">A Sharafi Holding Group Company</div>
+
+      <div class="amp-f__social">
+        <a class="amp-social amp-social--li" href="https://ae.linkedin.com/company/ampconnectme" target="_blank" rel="noopener" aria-label="AMPCONNECT on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.75-2.05 4 0 4.4 2.6 4.4 6V21h-4v-5.5c0-1.3-.03-3-1.85-3-1.85 0-2.15 1.44-2.15 2.9V21h-4V9Z"/></svg>
+        </a>
+        <a class="amp-social amp-social--wa" href="https://wa.me/971545820214?text=Hello%20AMPCONNECT%2C%20I%20would%20like%20to%20know%20more%20about%20your%20IT%20solutions." target="_blank" rel="noopener" aria-label="Chat with AMPCONNECT on WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.89-.79-1.48-1.76-1.66-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.8.37-.27.3-1.03 1.02-1.03 2.48s1.06 2.87 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.69.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.78h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.89 9.89-9.89 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.89-9.88 9.89m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.005c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.49-8.41"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- quick links -->
+    <div class="amp-f__rev">
+      <h3 class="amp-f__coltitle">Quick Links</h3>
+      <ul class="amp-f__list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="solutions.html">All Solutions</a></li>
+        <li><a href="brands.html">All Brands</a></li>
+        <li><a href="brands.html">Products</a></li>
+        <li><a href="insights.html">Insights</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- solutions -->
+    <div class="amp-f__rev">
+      <h3 class="amp-f__coltitle">Solutions</h3>
+      <ul class="amp-f__list">
+        <li><a href="datacenter-solutions.html">Datacenter Solutions</a></li>
+        <li><a href="enterprise-cabling-solutions.html">Enterprise Cabling</a></li>
+        <li><a href="computing-hyperconverged-solutions.html">Computing &amp; Hyperconverged</a></li>
+        <li><a href="network-solutions.html">Network Solutions</a></li>
+        <li><a href="data-protection-and-business-continuity.html">Data Protection &amp; Continuity</a></li>
+        <li><a href="cyber-security.html">Cyber Security</a></li>
+        <li><a href="safety-identification-monitoring.html">Safety, ID &amp; Monitoring</a></li>
+      </ul>
+    </div>
+
+    <!-- featured vendors -->
+    <div class="amp-f__rev">
+      <h3 class="amp-f__coltitle">Featured Vendors</h3>
+      <ul class="amp-f__list">
+        <li><a href="commscope.html">CommScope</a></li>
+        <li><a href="rittal.html">Rittal</a></li>
+        <li><a href="delta.html">Delta Electronics</a></li>
+        <li><a href="arcserve.html">Arcserve</a></li>
+        <li><a href="avast.html">Avast Business</a></li>
+        <li><a href="leviton.html">Leviton</a></li>
+        <li><a href="tp-link.html">TP-Link</a></li>
+        <li><a href="silverfox.html">Silver Fox</a></li>
+      </ul>
+    </div>
+
+    <!-- get in touch (vertical: phone + email, next to Vendors) -->
+    <div class="amp-f__rev">
+      <h3 class="amp-f__coltitle">Get in Touch</h3>
+      <ul class="amp-f__clist">
+        <li class="amp-cc">
+          <span class="amp-cc__k"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3l1.6 4-2 1.4a12 12 0 0 0 5.5 5.5l1.4-2 4 1.6V19a1.5 1.5 0 0 1-1.6 1.5A15.5 15.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4Z"/></svg>Phone</span>
+          <a class="amp-cc__v" href="tel:+97148065894">+971&nbsp;4&nbsp;806&nbsp;5894</a>
+        </li>
+        <li class="amp-cc">
+          <span class="amp-cc__k"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</span>
+          <a class="amp-cc__v" href="mailto:info@ampconnectme.com">info@ampconnectme.com</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 4 · BOTTOM BAR ============ -->
+  <div class="amp-f__bottom">
+    <p class="amp-f__copy">&copy; <span class="amp-f__yr">2026</span> AMPCONNECT. All rights reserved.</p>
+    <div class="amp-f__legal">
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('amp-footer');
+  if(!root || root.getAttribute('data-amp-ready')==='true') return;
+  root.setAttribute('data-amp-ready','true');
+
+  /* ---------- always-on: current year ---------- */
+  var yr=root.querySelector('.amp-f__yr');
+  if(yr) yr.textContent=new Date().getFullYear();
+
+  /* ---------- lightweight reveal animations; no external library ---------- */
+  var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var inEditor=document.body&&document.body.classList.contains('elementor-editor-active');
+  if(reduceMotion||inEditor||!('IntersectionObserver' in window)) return;
+  root.classList.add('amp-anim');
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      entry.target.classList.add('amp-seen');
+      observer.unobserve(entry.target);
+    });
+  },{threshold:.08,rootMargin:'0px 0px -4% 0px'});
+  root.querySelectorAll('.amp-office,.amp-f__rev').forEach(function(el){
+    observer.observe(el);
+  });
+})();
+</script>
+</footer>
+
+</body>
+</html>
