@@ -1878,7 +1878,7 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
 <!-- ============================================================
      AMPCONNECT · SITE FOOTER
      ------------------------------------------------------------
-     Palette:  bg #fc6439 (plain)  ·  boxes/accents #2c4c76  ·  text + icon boxes off-white #F7F5F2
+     Palette:  bg #3D5A80 (Ampconnect logo blue)  ·  boxes deep navy  ·  accents coral #ed6e4e  ·  text + icon boxes off-white #F7F5F2
      Self-contained Elementor block:
        - background and typography scoped to the footer component
        - namespaced CSS under #amp-footer
@@ -1888,13 +1888,13 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
 <style>
 #amp-footer{
   --brand:#ed6e4e;         /* brand orange — icon paths                  */
-  --blue-glass:rgba(44,76,118,.92);   /* transparent blue — office boxes */
+  --blue-glass:rgba(27,47,73,.38);    /* deep navy glass — office boxes   */
   --paper:#F7F5F2;         /* off-white: text, lines, icon boxes         */
   --paper-70:rgba(247,245,242,.72);
   --paper-glass:rgba(247,245,242,.16); /* transparent off-white — icons  */
   --paper-line:rgba(247,245,242,.4);
   position:relative; overflow:hidden; isolation:isolate;
-  background:#fc6439 !important;
+  background:#3D5A80 !important;
   font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif !important;
   color:#F7F5F2 !important;
   padding:0 clamp(1.25rem,5vw,3rem) 0;
@@ -1921,7 +1921,7 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
   transition:transform .45s cubic-bezier(.22,1,.36,1);
 }
 /* off-white rule shown by default across the top of each box */
-#amp-footer .amp-office:before{ content:""; position:absolute; left:0; top:0; height:2px; width:100%; background:var(--paper); }
+#amp-footer .amp-office:before{ content:""; position:absolute; left:0; top:0; height:2px; width:100%; background:var(--brand); }
 #amp-footer .amp-office:hover{ transform:translateY(-6px); }
 #amp-footer .amp-office__top{ display:flex; align-items:center; gap:.8rem; margin-bottom:1.1rem; }
 /* icon box stays off-white */
@@ -1933,10 +1933,10 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
 #amp-footer .amp-office__no{ position:absolute; right:1.1rem; bottom:.6rem; font-size:2.6rem; font-weight:800; line-height:1; color:rgba(247,245,242,.1); letter-spacing:-.03em; pointer-events:none; }
 
 /* ============ 2 · MAIN GRID — brand + link columns ============ */
-#amp-footer .amp-f__main{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1fr; gap:clamp(1.6rem,3.2vw,2.8rem); padding:clamp(2.4rem,4.5vw,3.4rem) 0; }
+#amp-footer .amp-f__main{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr 1.3fr; gap:clamp(1.6rem,3.2vw,2.8rem); padding:clamp(2.4rem,4.5vw,3.4rem) 0; }
 
 /* brand column */
-#amp-footer .amp-f__logoimg{ display:block; width:190px; max-width:100%; height:auto; margin-bottom:1.5rem; }
+#amp-footer .amp-f__logoimg{ display:block; width:210px; max-width:100%; height:auto; margin-bottom:1.5rem; }
 #amp-footer .amp-f__blurb{ font-size:.88rem; font-weight:400; line-height:1.75; color:var(--paper) !important; margin:0 0 1.4rem; max-width:34ch; }
 #amp-footer .amp-f__blurb b{ font-weight:700; }
 #amp-footer .amp-f__est{ display:inline-flex; align-items:center; font-size:.78rem; font-weight:600; color:var(--paper) !important; margin-bottom:1.5rem; }
@@ -1958,7 +1958,7 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
 
 /* link columns */
 #amp-footer .amp-f__coltitle{ font-size:.72rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--paper) !important; margin:0 0 1.3rem; position:relative; padding-bottom:.8rem; }
-#amp-footer .amp-f__coltitle:after{ content:""; position:absolute; left:0; bottom:0; width:22px; height:2px; background:var(--paper); border-radius:2px; }
+#amp-footer .amp-f__coltitle:after{ content:""; position:absolute; left:0; bottom:0; width:22px; height:2px; background:var(--brand); border-radius:2px; }
 #amp-footer .amp-f__list{ list-style:none; margin:0; padding:0; display:grid; gap:.62rem; }
 #amp-footer .amp-f__list a{
   position:relative; display:inline-flex; align-items:center; gap:.4rem;
@@ -1974,7 +1974,7 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
 #amp-footer .amp-cc{ display:flex; flex-direction:column; gap:.28rem; }
 #amp-footer .amp-cc__k{ display:inline-flex; align-items:center; gap:.45rem; font-size:.6rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--paper-70) !important; }
 #amp-footer .amp-cc__k svg{ width:13px; height:13px; stroke:var(--paper-70); fill:none; stroke-width:1.9; }
-#amp-footer .amp-cc__v{ position:relative; display:inline-block; font-size:.9rem; font-weight:600; color:var(--paper) !important; line-height:1.35; word-break:break-word; transition:opacity .3s; }
+#amp-footer .amp-cc__v{ position:relative; display:inline-block; font-size:.9rem; font-weight:600; color:var(--paper) !important; line-height:1.35; white-space:nowrap; transition:opacity .3s; }
 #amp-footer .amp-cc__v:after{ content:""; position:absolute; left:0; bottom:-2px; height:1.5px; width:0; background:var(--paper); transition:width .4s cubic-bezier(.22,1,.36,1); }
 #amp-footer a.amp-cc__v:hover{ opacity:.85; }
 #amp-footer a.amp-cc__v:hover:after{ width:100%; }
@@ -2062,10 +2062,10 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
     <!-- brand -->
     <div class="amp-f__rev">
       <!-- ===== LOGO: replace the src below with your own file =====
-           Currently pointing at the live WHITE logo (works on this orange background). -->
+           Coral AMP + white outline CONNECT (AMP_LOGO-6, cropped), uploaded to WP Media 2026-11-13. -->
       <img class="amp-f__logoimg"
-           src="https://ampconnectme.com/wp-content/uploads/2025/04/logo-white-1024x206.png"
-           alt="AMPCONNECT" width="1024" height="206">
+           src="https://ampconnectme.com/wp-content/uploads/2026/11/AMP_LOGO-6-footer.webp"
+           alt="AMPCONNECT" width="488" height="87">
 
       <p class="amp-f__blurb"><b>AMPCONNECT</b> is an ISO-certified value-added IT distributor delivering infrastructure, connectivity, power, data protection and networking technologies across the UAE, GCC and Africa.</p>
 
