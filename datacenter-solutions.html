@@ -1449,8 +1449,12 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
   box-shadow:inset 0 0 0 1px rgba(61,90,128,.1), 0 22px 46px -40px rgba(61,90,128,.5);
   transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s; }
 #amp-dc-brands .br-card:hover{ transform:translateY(-5px); box-shadow:inset 0 0 0 1px rgba(237,110,78,.34), 0 34px 58px -42px rgba(61,90,128,.6); }
-#amp-dc-brands .br-logo{ height:38px; display:flex; align-items:center; }
-#amp-dc-brands .br-logo img{ max-height:38px; max-width:140px; width:auto; object-fit:contain; mix-blend-mode:multiply; }
+#amp-dc-brands .br-logo{ height:64px; display:flex; align-items:center; }
+#amp-dc-brands .br-logo img{ max-height:64px; max-width:150px; width:auto; object-fit:contain; mix-blend-mode:multiply; }
+/* balanced logo sizes: Rittal file is portrait (0.71), Delta is tight (3.73), Legrand jpg has 28% blank top and bottom (content 4.0) */
+#amp-dc-brands .br-logo img[alt="Rittal logo"]{ height:64px; width:auto; }
+#amp-dc-brands .br-logo img[alt="Delta Electronics logo"]{ width:118px; height:auto; }
+#amp-dc-brands .br-logo img[alt="Legrand logo"]{ width:126px; height:32px; object-fit:cover; object-position:center; }
 #amp-dc-brands .br-role{ font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); }
 #amp-dc-brands .br-name{ font-size:1.12rem; font-weight:600; color:#1b2a3b; margin:-.4rem 0 0; }
 #amp-dc-brands .br-desc{ font-size:.92rem; font-weight:300; line-height:1.62; color:rgba(0,0,0,.62); margin:0; }
@@ -1484,23 +1488,23 @@ body.admin-bar #amp-header-system .amp-drawer{top:32px;height:calc(100dvh - 32px
       <span class="br-role">Racks, Cooling &amp; Edge Datacenters</span>
       <p class="br-name">Rittal</p>
       <p class="br-desc">VX IT racks and enclosures, PDUs and UPS, LCP cooling, aisle containment, CMC III monitoring and edge and container datacenters.</p>
-      <span class="br-more">View Rittal<svg viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="br-more">Explore Rittal<svg viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </a>
 
-    <a class="br-card" href="contact-us.html">
+    <a class="br-card" href="delta.html">
       <div class="br-logo"><img src="https://ampconnectme.com/wp-content/uploads/2026/09/delta-logo.webp" alt="Delta Electronics logo" loading="lazy" decoding="async" onerror="this.parentNode.innerHTML='<span class=\'txt\'>Delta</span>'"></div>
       <span class="br-role">Power, UPS &amp; Cooling</span>
       <p class="br-name">Delta Electronics</p>
       <p class="br-desc">Modular UPS, Li-ion batteries, PDUs and busway, liquid and air cooling, racks, InfraSuite DCIM and modular datacenters.</p>
-      <span class="br-more">Enquire about Delta<svg viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="br-more">Explore Delta<svg viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </a>
 
-    <a class="br-card" href="contact-us.html">
+    <a class="br-card" href="legrand.html">
       <div class="br-logo"><img src="https://ampconnectme.com/wp-content/uploads/2026/04/Legrand-logo-1024x576.jpg" alt="Legrand logo" loading="lazy" decoding="async" onerror="this.parentNode.innerHTML='<span class=\'txt\'>Legrand</span>'"></div>
       <span class="br-role">Racks, Power &amp; Containment</span>
       <p class="br-name">Legrand</p>
       <p class="br-desc">Minkels racks and containment, Raritan and Server Technology PDUs, Starline busway, Keor UPS, rear-door cooling and KVM.</p>
-      <span class="br-more">Enquire about Legrand<svg viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="br-more">Explore Legrand<svg viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </a>
   </div>
 
